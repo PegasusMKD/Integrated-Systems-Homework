@@ -2,8 +2,11 @@
 
 ## To Dos
  - [X] Create the required and complementary entities/data models
- - [ ] Configure relationships - *In Progress*
- - [ ] Implement repositories - *In Progress*
+ - [X] Configure relationships
+ - [ ] Implement base repository interfaces - *In Progress*
+ - [ ] Configure application context - *In Progress*
+ - [ ] Implement repositories
+ - [ ] Create migrations
  - [ ] Configure Identity
  - [ ] Implement the services
  - [ ] Implement controllers and views
