@@ -1,9 +1,10 @@
 ﻿# Integrated Systems Homework
 
 ## To Dos
- - [ ] Create the required and complementary entities/data models - *In Progress*
+ - [X] Create the required and complementary entities/data models
  - [ ] Configure relationships - *In Progress*
  - [ ] Implement repositories - *In Progress*
+ - [ ] Configure Identity
  - [ ] Implement the services
  - [ ] Implement controllers and views
 
