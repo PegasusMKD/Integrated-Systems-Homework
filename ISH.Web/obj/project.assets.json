@@ -555,11 +555,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Programming\\C#\\Integrated-Systems-Homework\\Integrated-Systems-Homework\\ISH.Web.csproj",
+      "projectUniqueName": "C:\\Programming\\C#\\Integrated-Systems-Homework\\ISH.Web\\ISH.Web.csproj",
       "projectName": "ISH.Web",
-      "projectPath": "C:\\Programming\\C#\\Integrated-Systems-Homework\\Integrated-Systems-Homework\\ISH.Web.csproj",
+      "projectPath": "C:\\Programming\\C#\\Integrated-Systems-Homework\\ISH.Web\\ISH.Web.csproj",
       "packagesPath": "C:\\Users\\Pazzio\\.nuget\\packages\\",
-      "outputPath": "C:\\Programming\\C#\\Integrated-Systems-Homework\\Integrated-Systems-Homework\\obj\\",
+      "outputPath": "C:\\Programming\\C#\\Integrated-Systems-Homework\\ISH.Web\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

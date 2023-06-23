@@ -1,14 +1,16 @@
 ﻿# Integrated Systems Homework
 
+## To Dos
+ - [ ] Create the required and complementary entities/data models - *In Progress*
+ - [ ] Configure relationships - *In Progress*
+ - [ ] Implement repositories - *In Progress*
+ - [ ] Implement the services
+ - [ ] Implement controllers and views
+
+
 ## Requirements
 
 Make a web application for ticket sales using Onion Architecture. The application should have the following functionalities:
-
-
-## To Dos
- - [ ] Create the required and complementary entities/data models - *In Progress*
- - [ ] Implement the services
- - [ ] Implement controllers and views
 
 ### Authentication System
 
@@ -22,7 +24,7 @@ Make a web application for ticket sales using Onion Architecture. The applicatio
 
  #### Tickets
  - [ ] CRUD operations for tickets (and related entities)
- - [ ] View to see all available tickets, and in the view users can filter the tickets by date
+ - [ ] View to see all available tickets, and in the view, users can filter the tickets by date
  
  #### Cart
  - [ ] Adding tickets to a Cart (both roles should be allowed to do this)
