@@ -1,5 +1,7 @@
 ﻿# Integrated Systems Homework
 
+This repository is a .NET Core homework project for my university project, more specifically for the "Integrated Systems" subject.
+
 ## To Dos
 General to-do items just to keep track of my work before implementing the full features.
 
