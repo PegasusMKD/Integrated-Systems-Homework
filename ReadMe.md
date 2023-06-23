@@ -9,6 +9,8 @@ General to-do items just to keep track of my work before implementing the full f
  - [X] Configure application context
  - [X] Implement a generic repository
  - [X] Implement DTOs for the services
+ - [X] Install AutoMapper
+ - [X] Implement & Configure AutoMapper
  - [ ] Implement the services - *In Progress*
  - [ ] Configure Identity
  - [ ] Create migrations

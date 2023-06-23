@@ -1,4 +1,5 @@
-﻿using ISH.Service.Dtos.Authentication;
+﻿using ISH.Data.Tickets;
+using ISH.Service.Dtos.Authentication;
 
 namespace ISH.Service.Dtos.Tickets
 {
@@ -9,7 +10,6 @@ namespace ISH.Service.Dtos.Tickets
         public string Seat { get; set; }
         public ViewSlotDto ViewSlot { get; set; }
         public UserDto? BoughtBy { get; set; }
-
-        // TODO: Missing TicketStatus
+        public TicketStatus TicketStatus { get; set; }
     }
 }
