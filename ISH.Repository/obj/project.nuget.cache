@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "bJycvZDUw9bUqax/6aBz7JWqmkEkLzN29ttPqh6MPue2b8wFkriM8XtILnnm699IXsDN88tfn1TGd9yavOBu3A==",
+  "success": true,
+  "projectFilePath": "C:\\Programming\\C#\\Integrated-Systems-Homework\\ISH.Repository\\ISH.Repository.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Pazzio\\.nuget\\packages\\microsoft.visualstudio.azure.containers.tools.targets\\1.17.2\\microsoft.visualstudio.azure.containers.tools.targets.1.17.2.nupkg.sha512"
+  ],
+  "logs": []
+}
