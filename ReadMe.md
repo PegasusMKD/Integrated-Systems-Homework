@@ -11,7 +11,10 @@ General to-do items just to keep track of my work before implementing the full f
  - [X] Implement DTOs for the services
  - [X] Install AutoMapper
  - [X] Implement & Configure AutoMapper
+ - [ ] Implement customized repositories - *In Progress*
  - [ ] Implement the services - *In Progress*
+ - [ ] Add error checking and handling
+      - For example trying to create an object when passing in a GUID, or updating one without a GUID
  - [ ] Configure Identity
  - [ ] Create migrations
  - [ ] Implement controllers and views

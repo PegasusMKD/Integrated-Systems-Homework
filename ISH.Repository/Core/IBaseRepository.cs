@@ -6,7 +6,7 @@ namespace ISH.Repository.Core
     {
         List<T> GetAll();
         T? GetById(Guid id);
-        T Insert(T entity);
+        T Create(T entity);
         T Update(T entity);
         void Delete(Guid id);
         void SaveChangesAsync();

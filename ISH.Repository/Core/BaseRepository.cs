@@ -13,7 +13,7 @@ namespace ISH.Repository.Core
 
         public T? GetById(Guid id) => _dataset.SingleOrDefault(e => e.Guid == id);
 
-        public T Insert(T entity) => _dataset.Add(entity).Entity;
+        public T Create(T entity) => _dataset.Add(entity).Entity;
 
         public T Update(T entity) => _dataset.Update(entity).Entity;
 
