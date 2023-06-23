@@ -7,11 +7,8 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace ISH.Data.Cart
 {
-    public class Cart
+    public class Cart : BaseEntity
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid Guid { get; set; }
         [Required]
         public User User { get; set; }
         [Required]

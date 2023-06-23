@@ -7,14 +7,11 @@ using Microsoft.EntityFrameworkCore.ValueGeneration;
 namespace ISH.Data.Tickets
 {
     [EntityTypeConfiguration(typeof(ViewSlotConfiguration))]
-    public class ViewSlot
+    public class ViewSlot : BaseEntity
     {
         /**
          * ViewSlot is just an aggregate for all available time slots in the cinema for the users to watch a movie.
          */
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid Guid { get; set; }
         [Required]
         public DateTime TimeSlot { get; set; }
         [Required]

@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ISH.Data.Orders
 {
-    public class OrderItem
+    public class OrderItem : BaseEntity
     {
         /**
          * OrderItem serves as a singular item in the order (and thus the invoice).
@@ -17,9 +17,6 @@ namespace ISH.Data.Orders
          *  he should be able to order 2 tickets to watch "movie A" at 23-06-2023T10:00:00
          *  and also order a ticket to watch "movie C" at 24-06-2023T22:00:00
          */
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid Guid { get; set; }
         [Required]
         public int TicketPrice { get; set; }
         [Required]

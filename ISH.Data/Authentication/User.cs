@@ -1,6 +1,6 @@
 ﻿namespace ISH.Data.Authentication
 {
-    public class User
+    public class User : BaseEntity
     {
     }
 }

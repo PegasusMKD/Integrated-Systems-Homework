@@ -8,15 +8,12 @@ using Microsoft.EntityFrameworkCore.ValueGeneration;
 
 namespace ISH.Data.Orders
 {
-    public class Order
+    public class Order : BaseEntity
     {
         /**
          * Order serves as the "aggregate" for an order, more specifically, something like a header for the invoice (and it should be the header)
          */
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid Guid { get; set; }
-        
+
         [Required]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public string OrderNumber { get; set; }

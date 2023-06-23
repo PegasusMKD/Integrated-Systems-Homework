@@ -1,14 +1,17 @@
 ﻿# Integrated Systems Homework
 
 ## To Dos
+General to-do items just to keep track of my work before implementing the full features.
+
  - [X] Create the required and complementary entities/data models
  - [X] Configure relationships
- - [ ] Implement base repository interfaces - *In Progress*
- - [ ] Configure application context - *In Progress*
- - [ ] Implement repositories
- - [ ] Create migrations
+ - [X] Implement base repository interfaces
+ - [X] Configure application context
+ - [X] Implement a generic repository
+ - [X] Implement DTOs for the services
+ - [ ] Implement the services - *In Progress*
  - [ ] Configure Identity
- - [ ] Implement the services
+ - [ ] Create migrations
  - [ ] Implement controllers and views
 
 
@@ -50,10 +53,10 @@ Make a web application for ticket sales using Onion Architecture. The applicatio
  - [ ] Administrator can import users using an Excel document.
    - Format of excel file:
  ```
-    E-mail          | Password  |     Role
-    ==========================================
-    admin@gmail.com | test123   | Administrator
-    user@gmail.com  | test123   |     User
+         E-mail      | Password  |    Role
+    =============================================
+     admin@gmail.com | test123   | Administrator
+     user@gmail.com  | test123   |    User
  ```
 
 
