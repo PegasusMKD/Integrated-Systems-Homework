@@ -19,14 +19,14 @@ namespace ISH.Service.Implementations
             _mapper = mapper;
         }
 
-        public List<OrderItemDto> GetOrderItemsByOrderId(Guid orderId)
-        {
-            throw new NotImplementedException();
-        }
+        public List<OrderItemDto> GetOrderItemsByOrderId(Guid orderId) =>
+            _orderItemRepository.GetOrderItemsByOrder(orderId).Select(_mapper.Map<OrderItemDto>).ToList();
 
         public List<OrderItemDto> CreateOrderItems(List<OrderItemDto> orderItems)
         {
-            throw new NotImplementedException();
+            var items = orderItems.Select(item => _baseRepository.Create(_mapper.Map<OrderItem>(item)));
+            _baseRepository.SaveChangesAsync();
+            return items.Select(_mapper.Map<OrderItemDto>).ToList();
         }
     }
 }

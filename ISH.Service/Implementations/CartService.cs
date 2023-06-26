@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
 using ISH.Data.Cart;
+using ISH.Data.Tickets;
+using ISH.Repository;
 using ISH.Repository.Core;
 using ISH.Service.Dtos.Cart;
 using ISH.Service.Dtos.Tickets;
@@ -8,34 +10,56 @@ namespace ISH.Service.Implementations
 {
     public class CartService : ICartService
     {
-        private readonly IBaseRepository<Cart> _cartRepository;
-        private readonly ITicketService _ticketService;
+        private readonly IBaseRepository<Cart> _baseCartRepository;
+        private readonly IBaseRepository<Ticket> _baseTicketRepository;
+        private readonly ICartRepository _cartRepository;
         private readonly IMapper _mapper;
 
-        public CartService(IBaseRepository<Cart> cartRepository, IMapper mapper, ITicketService ticketService)
+        public CartService(IBaseRepository<Cart> cartRepository, IMapper mapper, IBaseRepository<Ticket> baseTicketRepository, ICartRepository cartRepository1)
         {
-            _cartRepository = cartRepository;
+            _baseCartRepository = cartRepository;
             _mapper = mapper;
-            _ticketService = ticketService;
+            _baseTicketRepository = baseTicketRepository;
+            _cartRepository = cartRepository1;
         }
 
-        public CartDto RemoveTicket(TicketDto ticket)
+        public CartDto RemoveTicket(CartDto cart, TicketDto ticket)
         {
-            throw new NotImplementedException();
+            var eCart = _baseCartRepository.GetById(cart.Guid);
+            if (eCart == null)
+                throw new Exception("Cart doesn't exist!");
+
+            var eTicket = _baseTicketRepository.GetById(ticket.Guid);
+            if (eTicket == null)
+                throw new Exception("Ticket doesn't exist!");
+
+            eCart.Tickets.Remove(eTicket);
+            _baseCartRepository.Update(eCart);
+            _baseCartRepository.SaveChangesAsync();
+            return _mapper.Map<CartDto>(eCart);
         }
 
-        public CartDto GetCartById(Guid id) => _mapper.Map<CartDto>(_cartRepository.GetById(id));
+        public CartDto GetCartById(Guid id) => _mapper.Map<CartDto>(_baseCartRepository.GetById(id));
 
-        public void DeleteCartById(Guid id) => _cartRepository.Delete(id);
+        public void DeleteCartById(Guid id) => _baseCartRepository.Delete(id);
 
-        public CartDto GetCartByUser(Guid userId)
+        public CartDto GetCartByUser(Guid userId) => 
+            _mapper.Map<CartDto>(_cartRepository.GetCartByUser(userId));
+
+        public CartDto AddTicket(CartDto cart, TicketDto ticket)
         {
-            throw new NotImplementedException();
-        }
+            var eCart = _baseCartRepository.GetById(cart.Guid);
+            if (eCart == null)
+                throw new Exception("Cart doesn't exist!");
 
-        public CartDto AddTicket(TicketDto ticket)
-        {
-            throw new NotImplementedException();
+            var eTicket = _baseTicketRepository.GetById(ticket.Guid);
+            if (eTicket == null)
+                throw new Exception("Ticket doesn't exist!");
+
+            eCart.Tickets.Add(eTicket);
+            _baseCartRepository.Update(eCart);
+            _baseCartRepository.SaveChangesAsync();
+            return _mapper.Map<CartDto>(eCart);
         }
     }
 }

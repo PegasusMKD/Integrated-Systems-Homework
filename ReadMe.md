@@ -13,13 +13,22 @@ General to-do items just to keep track of my work before implementing the full f
  - [X] Implement DTOs for the services
  - [X] Install AutoMapper
  - [X] Implement & Configure AutoMapper
- - [ ] Implement customized repositories - *In Progress*
- - [ ] Implement the services - *In Progress*
+ - [X] Implement customized repositories
+ - [X] Implement the base service functionality (excluding 3rd-party library implementation)
+ - [ ] Implement controllers
+ - [ ] Create migrations
+ - [ ] Configure Identity
+ - [ ] Implement Swagger
+ - [ ] Start testing endpoints through Swagger
+ - [ ] Implement views
+ - [ ] Test/Experiment with controllers and views to see how well it works
  - [ ] Add error checking and handling
       - For example trying to create an object when passing in a GUID, or updating one without a GUID
- - [ ] Configure Identity
- - [ ] Create migrations
- - [ ] Implement controllers and views
+ - [ ] Implement required 3rd-party functionality
+      - Stripe payment
+      - Excel import/export
+      - Invoice PDF generation
+      - Sending an e-mail
 
 
 ## Requirements

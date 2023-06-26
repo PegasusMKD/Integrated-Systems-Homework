@@ -19,7 +19,7 @@ namespace ISH.Data.Orders
         public string OrderNumber { get; set; }
         
         [Required]
-        public int TotalPrice { get; set; } = 0;
+        public int TotalPrice { get; set; }
         
         public User OrderedBy { get; set; }
     }

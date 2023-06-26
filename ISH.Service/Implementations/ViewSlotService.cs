@@ -8,7 +8,7 @@ namespace ISH.Service.Implementations
     public class ViewSlotService : IViewSlotService
     {
         private readonly IBaseRepository<ViewSlot> _baseRepository;
-        private IMapper _mapper;
+        private readonly IMapper _mapper;
 
         public ViewSlotService(IBaseRepository<ViewSlot> baseRepository, IMapper mapper)
         {

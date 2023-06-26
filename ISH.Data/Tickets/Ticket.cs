@@ -15,7 +15,7 @@ namespace ISH.Data.Tickets
          */
         public TicketStatus TicketStatus { get; set; } = TicketStatus.Available;
         public int Price { get; set; }
-        public string Seat { get; set; } // Will have some naming scheme "XYY" (where X is some letter for the row, and YY is the column, aka position in the row)
+        public int SeatNumber { get; set; }
         public ViewSlot ViewSlot { get; set; }
         public User? BoughtBy { get; set; }
     }
