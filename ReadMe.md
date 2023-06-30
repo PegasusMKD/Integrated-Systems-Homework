@@ -15,7 +15,8 @@ General to-do items just to keep track of my work before implementing the full f
  - [X] Implement & Configure AutoMapper
  - [X] Implement customized repositories
  - [X] Implement the base service functionality (excluding 3rd-party library implementation)
- - [ ] Implement controllers
+ - [X] Implement controllers
+ - [ ] Configure a database (MS SQL)
  - [ ] Create migrations
  - [ ] Configure Identity
  - [ ] Implement Swagger

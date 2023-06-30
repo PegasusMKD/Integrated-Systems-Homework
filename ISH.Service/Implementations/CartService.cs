@@ -23,13 +23,13 @@ namespace ISH.Service.Implementations
             _cartRepository = cartRepository1;
         }
 
-        public CartDto RemoveTicket(CartDto cart, TicketDto ticket)
+        public CartDto RemoveTicket(Guid cartId, Guid ticketId)
         {
-            var eCart = _baseCartRepository.GetById(cart.Guid);
+            var eCart = _baseCartRepository.GetById(cartId);
             if (eCart == null)
                 throw new Exception("Cart doesn't exist!");
 
-            var eTicket = _baseTicketRepository.GetById(ticket.Guid);
+            var eTicket = _baseTicketRepository.GetById(ticketId);
             if (eTicket == null)
                 throw new Exception("Ticket doesn't exist!");
 
@@ -46,13 +46,13 @@ namespace ISH.Service.Implementations
         public CartDto GetCartByUser(Guid userId) => 
             _mapper.Map<CartDto>(_cartRepository.GetCartByUser(userId));
 
-        public CartDto AddTicket(CartDto cart, TicketDto ticket)
+        public CartDto AddTicket(Guid cartId, Guid ticketId)
         {
-            var eCart = _baseCartRepository.GetById(cart.Guid);
+            var eCart = _baseCartRepository.GetById(cartId);
             if (eCart == null)
                 throw new Exception("Cart doesn't exist!");
 
-            var eTicket = _baseTicketRepository.GetById(ticket.Guid);
+            var eTicket = _baseTicketRepository.GetById(ticketId);
             if (eTicket == null)
                 throw new Exception("Ticket doesn't exist!");
 

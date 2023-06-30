@@ -29,10 +29,10 @@ namespace ISH.Service.Implementations
             _ticketService = ticketService;
         }
 
-        public OrderDto CreateOrder(CartDto cart)
+        public OrderDto CreateOrder(Guid cartId)
         {
             // TODO: Add payment requirement
-            var eCart = _baseCartRepository.GetById(cart.Guid);
+            var eCart = _baseCartRepository.GetById(cartId);
             if (eCart == null)
                 throw new Exception("Cart does not exist anymore!");
 
@@ -88,7 +88,7 @@ namespace ISH.Service.Implementations
             throw new NotImplementedException();
         }
 
-        public void GenerateInvoice(OrderDto order)
+        public void GenerateInvoice(Guid orderId)
         {
             throw new NotImplementedException();
         }

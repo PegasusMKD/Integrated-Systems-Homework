@@ -27,13 +27,13 @@ namespace ISH.Service.Implementations
 
         public TicketDto GetById(Guid id) => _mapper.Map<TicketDto>(_baseRepository.GetById(id));
 
-        public List<TicketDto> CreateXTicketsForViewSlot(ViewSlotDto viewSlot, int xTickets)
+        public List<TicketDto> CreateXTicketsForViewSlot(Guid viewSlotId, int xTickets)
         {
-            ViewSlot? eViewSlot = _baseViewSlotRepository.GetById(viewSlot.Guid);
+            ViewSlot? eViewSlot = _baseViewSlotRepository.GetById(viewSlotId);
             if (eViewSlot == null)
                 throw new Exception("View Slot does not exist!");
 
-            int latestSeatNumber = _ticketRepository.CountTicketsByViewSlot(viewSlot.Guid);
+            int latestSeatNumber = _ticketRepository.CountTicketsByViewSlot(viewSlotId);
             var tickets = Enumerable.Range(0, xTickets).Select(x => new Ticket()
             {
                 SeatNumber = latestSeatNumber + x,
@@ -46,8 +46,8 @@ namespace ISH.Service.Implementations
 
         public List<TicketDto> GetAllTickets() => _baseRepository.GetAll().Select(_mapper.Map<TicketDto>).ToList();
 
-        public List<TicketDto> GetTicketsByViewSlot(ViewSlotDto viewSlot) => _ticketRepository
-            .GetTicketsByViewSlot(viewSlot.Guid).ConvertAll(_mapper.Map<TicketDto>);
+        public List<TicketDto> GetTicketsByViewSlot(Guid viewSlotId) => _ticketRepository
+            .GetTicketsByViewSlot(viewSlotId).ConvertAll(_mapper.Map<TicketDto>);
 
         public List<TicketDto> FilterTickets(FilterTicketsDto filter)
         {

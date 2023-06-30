@@ -5,8 +5,8 @@ namespace ISH.Service
 {
     public interface ICartService
     {
-        CartDto AddTicket(CartDto cart, TicketDto ticket);
-        CartDto RemoveTicket(CartDto cart, TicketDto ticket);
+        CartDto AddTicket(Guid cartId, Guid ticketId);
+        CartDto RemoveTicket(Guid cartId, Guid ticketId);
         CartDto GetCartById(Guid id);
         void DeleteCartById(Guid id);
         CartDto GetCartByUser(Guid userId);
