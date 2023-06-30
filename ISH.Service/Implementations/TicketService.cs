@@ -14,7 +14,7 @@ namespace ISH.Service.Implementations
         private readonly ITicketRepository _ticketRepository;
         private readonly IBaseRepository<ViewSlot> _baseViewSlotRepository;
 
-        public TicketService(IBaseRepository<Ticket> ticketRepository, Mapper mapper, ITicketRepository ticketRepository1, IBaseRepository<ViewSlot> baseViewSlotRepository)
+        public TicketService(IBaseRepository<Ticket> ticketRepository, IMapper mapper, ITicketRepository ticketRepository1, IBaseRepository<ViewSlot> baseViewSlotRepository)
         {
             _baseRepository = ticketRepository;
             _mapper = mapper;

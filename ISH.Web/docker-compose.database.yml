@@ -1,0 +1,19 @@
+version: "3.7"
+
+services:
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    user: root
+    container_name: ish_server
+    ports:
+      - "1433:1433"
+    environment:
+      MSSQL_SA_PASSWORD: ISH123
+      ACCEPT_EULA: Y
+    volumes:
+      - mssql_data:/var/opt/mssql/data
+
+
+volumes:
+  mssql_data:
+    driver: local

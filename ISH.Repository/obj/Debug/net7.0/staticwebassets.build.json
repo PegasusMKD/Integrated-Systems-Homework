@@ -1,0 +1,23 @@
+{
+  "Version": 1,
+  "Hash": "1DnXm6KYS2dP8tXBqLotq5HHdbW0/qhw5hpilpSjCyQ=",
+  "Source": "ISH.Repository",
+  "BasePath": "_content/ISH.Repository",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [
+    {
+      "Identity": "C:\\Programming\\C#\\Integrated-Systems-Homework\\ISH.Data\\ISH.Data.csproj",
+      "Version": 2,
+      "Source": "ISH.Data",
+      "GetPublishAssetsTargets": "ComputeReferencedStaticWebAssetsPublishManifest;GetCurrentProjectPublishStaticWebAssetItems",
+      "AdditionalPublishProperties": "",
+      "AdditionalPublishPropertiesToRemove": "WebPublishProfileFile;TargetFramework;RuntimeIdentifier;SelfContained",
+      "GetBuildAssetsTargets": "GetCurrentProjectBuildStaticWebAssetItems",
+      "AdditionalBuildProperties": "",
+      "AdditionalBuildPropertiesToRemove": "WebPublishProfileFile;TargetFramework;RuntimeIdentifier;SelfContained"
+    }
+  ],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

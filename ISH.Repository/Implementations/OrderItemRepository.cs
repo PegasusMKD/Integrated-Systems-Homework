@@ -5,14 +5,14 @@ namespace ISH.Repository.Implementations
 {
     public class OrderItemRepository : IOrderItemRepository
     {
-        private readonly DbSet<OrderItem> _dataset;
+        private readonly ApplicationContext _context;
 
-        public OrderItemRepository(DbSet<OrderItem> dataset)
+        public OrderItemRepository(ApplicationContext context)
         {
-            _dataset = dataset;
+            _context = context;
         }
 
         public List<OrderItem> GetOrderItemsByOrder(Guid orderGuid) =>
-            _dataset.Where(item => item.Order.Guid == orderGuid).ToList();
+            _context.orderItems.Where(item => item.Order.Guid == orderGuid).ToList();
     }
 }

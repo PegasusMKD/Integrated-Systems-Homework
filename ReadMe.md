@@ -16,8 +16,10 @@ General to-do items just to keep track of my work before implementing the full f
  - [X] Implement customized repositories
  - [X] Implement the base service functionality (excluding 3rd-party library implementation)
  - [X] Implement controllers
- - [ ] Configure a database (MS SQL)
- - [ ] Create migrations
+ - [X] Configure application
+ - [X] Configure a database (MS SQL)
+ - [X] Create migrations
+ - [ ] Test migrations - *In Progress*
  - [ ] Configure Identity
  - [ ] Implement Swagger
  - [ ] Start testing endpoints through Swagger

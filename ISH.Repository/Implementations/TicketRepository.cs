@@ -5,18 +5,18 @@ namespace ISH.Repository.Implementations
 {
     public class TicketRepository : ITicketRepository
     {
-        private readonly DbSet<Ticket> _dataset;
+        private readonly ApplicationContext _context;
 
-        public TicketRepository(DbSet<Ticket> dataset)
+
+        public TicketRepository(ApplicationContext context)
         {
-            _dataset = dataset;
+            _context = context;
         }
 
-
         public int CountTicketsByViewSlot(Guid viewSlotId) => 
-            _dataset.Count(ticket => ticket.ViewSlot.Guid == viewSlotId);
+            _context.tickets.Count(ticket => ticket.ViewSlot.Guid == viewSlotId);
 
         public List<Ticket> GetTicketsByViewSlot(Guid viewSlotId) =>
-            _dataset.Where(ticket => ticket.ViewSlot.Guid == viewSlotId).ToList();
+            _context.tickets.Where(ticket => ticket.ViewSlot.Guid == viewSlotId).ToList();
     }
 }
