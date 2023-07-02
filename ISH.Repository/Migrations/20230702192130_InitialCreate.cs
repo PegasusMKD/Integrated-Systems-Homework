@@ -51,7 +51,7 @@ namespace ISH.Repository.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "MovieGenre",
+                name: "movieGenre",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -60,7 +60,7 @@ namespace ISH.Repository.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_MovieGenre", x => x.Id);
+                    table.PrimaryKey("PK_movieGenre", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -193,7 +193,8 @@ namespace ISH.Repository.Migrations
                 columns: table => new
                 {
                     Guid = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    OrderNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    OrderNumber = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     TotalPrice = table.Column<int>(type: "int", nullable: false),
                     OrderedById = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
@@ -220,9 +221,9 @@ namespace ISH.Repository.Migrations
                 {
                     table.PrimaryKey("PK_viewSlots", x => x.Guid);
                     table.ForeignKey(
-                        name: "FK_viewSlots_MovieGenre_GenreId",
+                        name: "FK_viewSlots_movieGenre_GenreId",
                         column: x => x.GenreId,
-                        principalTable: "MovieGenre",
+                        principalTable: "movieGenre",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -329,8 +330,8 @@ namespace ISH.Repository.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_MovieGenre_Name",
-                table: "MovieGenre",
+                name: "IX_movieGenre_Name",
+                table: "movieGenre",
                 column: "Name",
                 unique: true);
 
@@ -405,7 +406,7 @@ namespace ISH.Repository.Migrations
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(
-                name: "MovieGenre");
+                name: "movieGenre");
         }
     }
 }

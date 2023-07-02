@@ -20,7 +20,6 @@ namespace Integrated_Systems_Homework.Controllers
             _userService = userService;
         }
 
-        // TODO: Update when we implement Identity
         [HttpPost]
         public IActionResult CreateByCart()
         {

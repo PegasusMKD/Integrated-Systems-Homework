@@ -17,6 +17,9 @@ namespace ISH.Repository.Implementations
             _context.tickets.Count(ticket => ticket.ViewSlot.Guid == viewSlotId);
 
         public List<Ticket> GetTicketsByViewSlot(Guid viewSlotId) =>
-            _context.tickets.Where(ticket => ticket.ViewSlot.Guid == viewSlotId).ToList();
+            _context.tickets.Include(ticket => ticket.ViewSlot).Where(ticket => ticket.ViewSlot.Guid == viewSlotId).ToList();
+
+        public List<Ticket> GetAllTicketsWithViewSlot() =>
+        _context.tickets.Include(ticket => ticket.ViewSlot).ToList();
     }
 }

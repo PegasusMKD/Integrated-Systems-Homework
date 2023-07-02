@@ -3,7 +3,9 @@ using ISH.Data.Authentication;
 using ISH.Data.Tickets;
 using ISH.Repository;
 using ISH.Repository.Core;
+using ISH.Repository.Implementations;
 using ISH.Service.Dtos.Tickets;
+using System.Linq.Expressions;
 
 namespace ISH.Service.Implementations
 {
@@ -22,12 +24,18 @@ namespace ISH.Service.Implementations
             _baseViewSlotRepository = baseViewSlotRepository;
         }
 
-        public TicketDto CreateTicket(TicketDto ticket) =>
-            _mapper.Map<TicketDto>(_baseRepository.Create(_mapper.Map<Ticket>(ticket)));
+        public TicketDto CreateTicket(CreateTicketDto ticket)
+        {
+            var mTicket = _mapper.Map<Ticket>(ticket);
+            mTicket.ViewSlot = _baseViewSlotRepository.GetById(ticket.ViewSlotId)!;
+            var eTicket = _baseRepository.Create(mTicket);
+            _baseRepository.SaveChanges();
+            return _mapper.Map<TicketDto>(eTicket);
+        }
 
         public TicketDto GetById(Guid id) => _mapper.Map<TicketDto>(_baseRepository.GetById(id));
 
-        public List<TicketDto> CreateXTicketsForViewSlot(Guid viewSlotId, int xTickets)
+        public List<TicketDto> CreateXTicketsForViewSlot(Guid viewSlotId, int xTickets, int price)
         {
             ViewSlot? eViewSlot = _baseViewSlotRepository.GetById(viewSlotId);
             if (eViewSlot == null)
@@ -37,16 +45,16 @@ namespace ISH.Service.Implementations
             var tickets = Enumerable.Range(0, xTickets).Select(x => new Ticket()
             {
                 SeatNumber = latestSeatNumber + x,
-                ViewSlot = eViewSlot
+                ViewSlot = eViewSlot,
+                Price = price
             }).Select(_baseRepository.Create)
-                .ToList();
-            _baseRepository.SaveChanges();
-            return tickets
                 .Select(_mapper.Map<TicketDto>)
                 .ToList();
+            _baseRepository.SaveChanges();
+            return tickets;
         }
 
-        public List<TicketDto> GetAllTickets() => _baseRepository.GetAll(ticket => ticket.ViewSlot).Select(_mapper.Map<TicketDto>).ToList();
+        public List<TicketDto> GetAllTickets() => _ticketRepository.GetAllTicketsWithViewSlot().Select(_mapper.Map<TicketDto>).ToList();
 
         public List<TicketDto> GetTicketsByViewSlot(Guid viewSlotId) => _ticketRepository
             .GetTicketsByViewSlot(viewSlotId).ConvertAll(_mapper.Map<TicketDto>);
@@ -56,9 +64,19 @@ namespace ISH.Service.Implementations
             throw new NotImplementedException(); // TODO: ??
         }
 
-        public TicketDto UpdateTicket(TicketDto ticket) =>
-            _mapper.Map<TicketDto>(_baseRepository.Update(_mapper.Map<Ticket>(ticket)));
+        public TicketDto UpdateTicket(UpdateTicketDto ticket)
+        {
+            var mTicket = _mapper.Map<Ticket>(ticket);
+            mTicket.ViewSlot = _baseViewSlotRepository.GetById(ticket.ViewSlotId)!;
+            var eTicket = _baseRepository.Update(mTicket);
+            _baseRepository.SaveChanges();
+            return _mapper.Map<TicketDto>(eTicket);
+        }
 
-        public void DeleteTicket(Guid id) => _baseRepository.Delete(id);
+        public void DeleteTicket(Guid id)
+        {
+            _baseRepository.Delete(id);
+            _baseRepository.SaveChanges();
+        }
     }
 }

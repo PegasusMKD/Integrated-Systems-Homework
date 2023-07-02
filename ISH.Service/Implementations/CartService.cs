@@ -70,7 +70,12 @@ namespace ISH.Service.Implementations
 
         public CartDto GetCartById(Guid id) => _mapper.Map<CartDto>(_baseCartRepository.GetById(id));
 
-        public void DeleteCartById(Guid id) => _baseCartRepository.Delete(id);
+        public void DeleteCartById(Guid id)
+        {
+            _baseCartRepository.Delete(id);
+            _baseCartRepository.SaveChanges();
+        }
+
         public void DeleteCartByUser(string id)
         {
             var eUser = _userRepository.GetUserById(id);

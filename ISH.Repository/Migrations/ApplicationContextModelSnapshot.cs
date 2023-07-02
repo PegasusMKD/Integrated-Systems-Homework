@@ -104,7 +104,7 @@ namespace ISH.Repository.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("carts", (string)null);
+                    b.ToTable("carts");
                 });
 
             modelBuilder.Entity("ISH.Data.MovieGenre", b =>
@@ -124,7 +124,7 @@ namespace ISH.Repository.Migrations
                     b.HasIndex("Name")
                         .IsUnique();
 
-                    b.ToTable("MovieGenre", (string)null);
+                    b.ToTable("movieGenre");
                 });
 
             modelBuilder.Entity("ISH.Data.Orders.Order", b =>
@@ -133,10 +133,11 @@ namespace ISH.Repository.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("OrderNumber")
-                        .IsRequired()
+                    b.Property<int>("OrderNumber")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OrderNumber"));
 
                     b.Property<string>("OrderedById")
                         .HasColumnType("nvarchar(450)");
@@ -148,7 +149,7 @@ namespace ISH.Repository.Migrations
 
                     b.HasIndex("OrderedById");
 
-                    b.ToTable("orders", (string)null);
+                    b.ToTable("orders");
                 });
 
             modelBuilder.Entity("ISH.Data.Orders.OrderItem", b =>
@@ -183,7 +184,7 @@ namespace ISH.Repository.Migrations
 
                     b.HasIndex("OrderGuid");
 
-                    b.ToTable("orderItems", (string)null);
+                    b.ToTable("orderItems");
                 });
 
             modelBuilder.Entity("ISH.Data.Tickets.Ticket", b =>
@@ -219,7 +220,7 @@ namespace ISH.Repository.Migrations
 
                     b.HasIndex("ViewSlotGuid");
 
-                    b.ToTable("tickets", (string)null);
+                    b.ToTable("tickets");
                 });
 
             modelBuilder.Entity("ISH.Data.Tickets.ViewSlot", b =>
@@ -242,7 +243,7 @@ namespace ISH.Repository.Migrations
 
                     b.HasIndex("GenreId");
 
-                    b.ToTable("viewSlots", (string)null);
+                    b.ToTable("viewSlots");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ISH.Repository.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20230702013107_InitialCreate")]
+    [Migration("20230702192130_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -127,7 +127,7 @@ namespace ISH.Repository.Migrations
                     b.HasIndex("Name")
                         .IsUnique();
 
-                    b.ToTable("MovieGenre");
+                    b.ToTable("movieGenre");
                 });
 
             modelBuilder.Entity("ISH.Data.Orders.Order", b =>
@@ -136,10 +136,11 @@ namespace ISH.Repository.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("OrderNumber")
-                        .IsRequired()
+                    b.Property<int>("OrderNumber")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OrderNumber"));
 
                     b.Property<string>("OrderedById")
                         .HasColumnType("nvarchar(450)");

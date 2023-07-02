@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using ISH.Data.Cart;
 using ISH.Data.Orders;
 using ISH.Data.Tickets;
 using ISH.Repository;
@@ -14,21 +15,25 @@ namespace ISH.Service.Implementations
     {
         private readonly IBaseRepository<Order> _baseOrderRepository;
         private readonly IBaseRepository<Ticket> _baseTicketRepository;
+        private readonly IBaseRepository<OrderItem> _baseOrderItemsRepository;
+        private readonly IBaseRepository<Cart> _baseCartRepository;
         private readonly ICartRepository _cartRepository;
         private readonly IUserRepository _userRepository;
         private readonly IOrderRepository _orderRepository;
+        private readonly IOrderItemRepository _orderItemRepository;
         private readonly IMapper _mapper;
-        private readonly IOrderItemService _orderItemService;
 
-        public OrderService(IBaseRepository<Order> baseOrderRepository, IMapper mapper, IOrderItemService orderItemService, IOrderRepository orderRepository, ICartRepository cartRepository, IUserRepository userRepository, IBaseRepository<Ticket> baseTicketRepository)
+        public OrderService(IBaseRepository<Order> baseOrderRepository, IMapper mapper, IOrderRepository orderRepository, ICartRepository cartRepository, IUserRepository userRepository, IBaseRepository<Ticket> baseTicketRepository, IBaseRepository<OrderItem> baseOrderItemsRepository, IBaseRepository<Cart> baseCartRepository, IOrderItemRepository orderItemRepository)
         {
             _baseOrderRepository = baseOrderRepository;
             _mapper = mapper;
-            _orderItemService = orderItemService;
             _orderRepository = orderRepository;
             _cartRepository = cartRepository;
             _userRepository = userRepository;
             _baseTicketRepository = baseTicketRepository;
+            _baseOrderItemsRepository = baseOrderItemsRepository;
+            _baseCartRepository = baseCartRepository;
+            _orderItemRepository = orderItemRepository;
         }
 
         public OrderDto CreateOrder(string userId)
@@ -41,7 +46,7 @@ namespace ISH.Service.Implementations
             var eCart = _cartRepository.GetCartByUser(eUser.Id);
             if (eCart == null)
                 throw new Exception("Cart doesn't exist!");
-            
+
             foreach (var eCartTicket in eCart.Tickets)
             {
                 if (eCartTicket.BoughtBy != null || eCartTicket.TicketStatus == TicketStatus.Bought)
@@ -54,13 +59,11 @@ namespace ISH.Service.Implementations
 
             var order = new Order
             {
-                OrderNumber = Guid.NewGuid().ToString(),
                 OrderedBy = eCart.User,
                 TotalPrice = eCart.Tickets.Sum(ticket => ticket.Price)
             };
 
             order = _baseOrderRepository.Create(order);
-            _baseOrderRepository.SaveChanges();
 
             var orderItems = eCart.Tickets.GroupBy(
                 ticket => ticket.ViewSlot.Guid,
@@ -80,9 +83,11 @@ namespace ISH.Service.Implementations
                         Order = order
                     };
                 }
-            ).Select(_mapper.Map<OrderItemDto>).ToList();
-            orderItems = _orderItemService.CreateOrderItems(orderItems);
+            ).Select(_baseOrderItemsRepository.Create)
+                .Select(_mapper.Map<OrderItemDto>)
+                .ToList();
 
+            _baseCartRepository.Delete(eCart.Guid);
             _baseOrderRepository.SaveChanges();
 
             var orderDto = _mapper.Map<OrderDto>(order);
@@ -101,9 +106,26 @@ namespace ISH.Service.Implementations
         }
 
         public List<OrderDto> GetOrdersByUser(string userId) =>
-            _orderRepository.GetAllByBoughtBy(userId).Select(_mapper.Map<OrderDto>).ToList();
+            _orderRepository.GetAllByBoughtByWithOrderedByAndItems(userId)
+                .Select(_mapper.Map<OrderDto>)
+                .Select(order =>
+                {
+                    order.Items = _orderItemRepository.GetOrderItemsByOrder(order.Guid)
+                        .Select(_mapper.Map<OrderItemDto>)
+                        .ToList();
+                    return order;
+                })
+                .ToList();
 
-        public List<OrderDto> GetOrders() => 
-            _baseOrderRepository.GetAll().Select(order => _mapper.Map<OrderDto>(order)).ToList();
+        public List<OrderDto> GetOrders() =>
+            _orderRepository.GetAllByWithOrderedByAndItems().Select(_mapper.Map<OrderDto>)
+                .Select(order =>
+                {
+                    order.Items = _orderItemRepository.GetOrderItemsByOrder(order.Guid)
+                        .Select(_mapper.Map<OrderItemDto>)
+                        .ToList();
+                    return order;
+                })
+                .ToList();
     }
 }

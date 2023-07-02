@@ -25,6 +25,8 @@ namespace Integrated_Systems_Homework
             services.AddTransient<ICartRepository, CartRepository>();
             services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<IMovieGenreRepository, MovieGenreRepository>();
+            services.AddTransient<IViewSlotRepository, ViewSlotRepository>();
+            services.AddTransient<IMovieGenreRepository, MovieGenreRepository>();
             services.AddTransient<IOrderItemRepository, OrderItemRepository>();
             services.AddTransient<IOrderRepository, OrderRepository>();
             services.AddTransient<ITicketRepository, TicketRepository>();
@@ -55,6 +57,7 @@ namespace Integrated_Systems_Homework
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddScoped<ICartService, CartService>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IMovieGenreService, MovieGenreService>();
             services.AddScoped<IOrderItemService, OrderItemService>();
             services.AddScoped<IOrderService, OrderService>();
             services.AddScoped<IViewSlotService, ViewSlotService>();
@@ -98,7 +101,7 @@ namespace Integrated_Systems_Homework
         {
             services.AddSwaggerGen(opt =>
             {
-                opt.SwaggerDoc("v1", new OpenApiInfo { Title = "LernDeutscheApi", Version = "v1" });
+                opt.SwaggerDoc("v1", new OpenApiInfo { Title = "Integrated Systems Homework API", Version = "v1" });
                 opt.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
                     In = ParameterLocation.Header,

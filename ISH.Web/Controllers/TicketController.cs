@@ -30,11 +30,11 @@ namespace Integrated_Systems_Homework.Controllers
 
         [HttpPut]
         [Authorize]
-        public IActionResult Update([FromBody] TicketDto ticket) => Ok(_ticketService.UpdateTicket(ticket));
+        public IActionResult Update([FromBody] UpdateTicketDto ticket) => Ok(_ticketService.UpdateTicket(ticket));
 
         [HttpPost]
         [Authorize]
-        public IActionResult Create([FromBody] TicketDto ticket) => Ok(_ticketService.CreateTicket(ticket));
+        public IActionResult Create([FromBody] CreateTicketDto ticket) => Ok(_ticketService.CreateTicket(ticket));
 
         [Authorize]
         [HttpDelete("{id}")]
@@ -43,7 +43,7 @@ namespace Integrated_Systems_Homework.Controllers
         [Authorize]
         [HttpPost("for-view-slot")]
         public IActionResult CreateXForViewSlot([FromBody] CreateXTicketsDto createXTickets) =>
-            Ok(_ticketService.CreateXTicketsForViewSlot(createXTickets.viewSlotId, createXTickets.xTickets));
+            Ok(_ticketService.CreateXTicketsForViewSlot(createXTickets.viewSlotId, createXTickets.xTickets, createXTickets.Price));
 
         [HttpGet]
         public IActionResult GetAll() => Ok(_ticketService.GetAllTickets());

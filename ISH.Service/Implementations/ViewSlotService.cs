@@ -10,40 +10,46 @@ namespace ISH.Service.Implementations
     public class ViewSlotService : IViewSlotService
     {
         private readonly IBaseRepository<ViewSlot> _baseRepository;
+        private readonly IViewSlotRepository _viewSlotRepository;
         private readonly IMovieGenreRepository _movieGenreRepository;
         private readonly IMapper _mapper;
 
-        public ViewSlotService(IBaseRepository<ViewSlot> baseRepository, IMapper mapper, IMovieGenreRepository movieGenreRepository)
+        public ViewSlotService(IBaseRepository<ViewSlot> baseRepository, IMapper mapper, IMovieGenreRepository movieGenreRepository, IViewSlotRepository viewSlotRepository)
         {
             _baseRepository = baseRepository;
             _mapper = mapper;
             _movieGenreRepository = movieGenreRepository;
+            _viewSlotRepository = viewSlotRepository;
         }
 
         public ViewSlotDto CreateViewSlot(CreateViewSlotDto viewSlot)
         {
             var mViewSlot = _mapper.Map<ViewSlot>(viewSlot);
-            mViewSlot.Genre = _movieGenreRepository.GetById(viewSlot.Genre.Id);
+            mViewSlot.Genre = _movieGenreRepository.GetById(viewSlot.GenreId);
             var eViewSlot = _baseRepository.Create(mViewSlot);
             _baseRepository.SaveChanges();
             return _mapper.Map<ViewSlotDto>(eViewSlot);
         }
 
         public ViewSlotDto GetById(Guid id) => 
-            _mapper.Map<ViewSlotDto>(_baseRepository.GetById(id, slot => slot.Genre));
+            _mapper.Map<ViewSlotDto>(_viewSlotRepository.GetByIdWithGenre(id));
 
         public List<ViewSlotDto> GetAllViewSlots() => 
-            _baseRepository.GetAll(slot => slot.Genre).ConvertAll(_mapper.Map<ViewSlotDto>);
+            _viewSlotRepository.GetAllWithGenre().ConvertAll(_mapper.Map<ViewSlotDto>);
 
         public ViewSlotDto UpdateViewSlot(UpdateViewSlotDto viewSlot)
         {
             var mViewSlot = _mapper.Map<ViewSlot>(viewSlot);
-            mViewSlot.Genre = _movieGenreRepository.GetById(viewSlot.Genre.Id);
+            mViewSlot.Genre = _movieGenreRepository.GetById(viewSlot.GenreId);
             var eViewSlot = _baseRepository.Update(mViewSlot);
             _baseRepository.SaveChanges();
             return _mapper.Map<ViewSlotDto>(eViewSlot);
         }
 
-        public void DeleteViewSlot(Guid id) => _baseRepository.Delete(id);
+        public void DeleteViewSlot(Guid id)
+        {
+            _baseRepository.Delete(id);
+            _baseRepository.SaveChanges();
+        }
     }
 }

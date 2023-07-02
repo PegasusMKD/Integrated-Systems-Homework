@@ -4,5 +4,6 @@
     {
         public Guid viewSlotId { get; set; }
         public int xTickets { get; set; }
+        public int Price { get; set; }
     }
 }

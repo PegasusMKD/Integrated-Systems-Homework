@@ -16,7 +16,7 @@ namespace ISH.Data.Orders
 
         [Required]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public string OrderNumber { get; set; }
+        public int OrderNumber { get; set; }
         
         [Required]
         public int TotalPrice { get; set; }

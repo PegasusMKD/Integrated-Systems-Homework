@@ -4,13 +4,13 @@ namespace ISH.Service
 {
     public interface ITicketService
     {
-        TicketDto CreateTicket(TicketDto ticket);
+        TicketDto CreateTicket(CreateTicketDto ticket);
         TicketDto GetById(Guid id);
-        List<TicketDto> CreateXTicketsForViewSlot(Guid viewSlotId, int xTickets);
+        List<TicketDto> CreateXTicketsForViewSlot(Guid viewSlotId, int xTickets, int price);
         List<TicketDto> GetAllTickets();
         List<TicketDto> GetTicketsByViewSlot(Guid viewSlotId);
         List<TicketDto> FilterTickets(FilterTicketsDto filter);
-        TicketDto UpdateTicket(TicketDto ticket);
+        TicketDto UpdateTicket(UpdateTicketDto ticket);
         void DeleteTicket(Guid id);
     }
 }

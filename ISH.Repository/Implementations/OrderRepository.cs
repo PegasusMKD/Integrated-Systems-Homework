@@ -7,7 +7,15 @@ namespace ISH.Repository.Implementations
     {
         private readonly ApplicationContext _context;
 
-        public List<Order> GetAllByBoughtBy(string userId) => 
-            _context.orders.Where(order => order.OrderedBy.Id == userId).ToList();
+        public OrderRepository(ApplicationContext context)
+        {
+            _context = context;
+        }
+
+        public List<Order> GetAllByBoughtByWithOrderedByAndItems(string userId) =>
+            _context.orders.Where(order => order.OrderedBy.Id == userId).Include(order => order.OrderedBy).ToList();
+
+        public List<Order> GetAllByWithOrderedByAndItems() =>
+            _context.orders.Include(order => order.OrderedBy).ToList();
     }
 }

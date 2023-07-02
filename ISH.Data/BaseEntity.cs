@@ -6,7 +6,6 @@ namespace ISH.Data
     public class BaseEntity
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid Guid { get; set; }
+        public Guid Guid { get; set; } = Guid.NewGuid();
     }
 }

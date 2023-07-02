@@ -11,6 +11,8 @@ namespace ISH.Service.AytoMapper.Tickets
         {
             CreateMap<Ticket, TicketDto>();
             CreateMap<TicketDto, Ticket>();
+            CreateMap<CreateTicketDto, Ticket>();
+            CreateMap<UpdateTicketDto, Ticket>();
         }
 
     }
