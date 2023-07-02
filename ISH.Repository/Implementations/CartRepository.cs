@@ -12,6 +12,6 @@ namespace ISH.Repository.Implementations
             _context = context;
         }
 
-        public Cart GetCartByUser(string userId) => _context.carts.First(cart => cart.User.Id == userId);
+        public Cart GetCartByUser(string userId) => _context.carts.Include(cart => cart.Tickets).ThenInclude(ticket => ticket.ViewSlot).First(cart => cart.User.Id == userId);
     }
 }

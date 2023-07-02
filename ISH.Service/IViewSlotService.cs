@@ -1,13 +1,14 @@
 ﻿using ISH.Service.Dtos.Tickets;
+using ISH.Service.Dtos.View_Slot;
 
 namespace ISH.Service
 {
     public interface IViewSlotService
     {
-        ViewSlotDto CreateViewSlot(ViewSlotDto viewSlot);
+        ViewSlotDto CreateViewSlot(CreateViewSlotDto viewSlot);
         ViewSlotDto GetById(Guid id);
         List<ViewSlotDto> GetAllViewSlots();
-        ViewSlotDto UpdateViewSlot(ViewSlotDto viewSlot);
+        ViewSlotDto UpdateViewSlot(UpdateViewSlotDto viewSlot);
         void DeleteViewSlot(Guid id);
     }
 }

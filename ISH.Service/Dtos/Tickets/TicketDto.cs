@@ -7,7 +7,7 @@ namespace ISH.Service.Dtos.Tickets
     {
         public Guid Guid { get; set; }
         public int Price { get; set; }
-        public string Seat { get; set; }
+        public string SeatNumber { get; set; }
         public ViewSlotDto ViewSlot { get; set; }
         public UserDto? BoughtBy { get; set; }
         public TicketStatus TicketStatus { get; set; }

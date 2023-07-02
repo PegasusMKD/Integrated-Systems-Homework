@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using ISH.Service;
 using ISH.Service.Dtos.Tickets;
+using ISH.Service.Dtos.View_Slot;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -28,12 +29,12 @@ namespace Integrated_Systems_Homework.Controllers
 
         [HttpPost]
         [Authorize]
-        public IActionResult CreateViewSlot([FromBody] ViewSlotDto viewSlot) =>
+        public IActionResult CreateViewSlot([FromBody] CreateViewSlotDto viewSlot) =>
             Ok(_viewSlotService.CreateViewSlot(viewSlot));
 
         [HttpPut]
         [Authorize]
-        public IActionResult UpdateViewSlot([FromBody] ViewSlotDto viewSlot) =>
+        public IActionResult UpdateViewSlot([FromBody] UpdateViewSlotDto viewSlot) =>
             Ok(_viewSlotService.UpdateViewSlot(viewSlot));
 
         [Authorize]

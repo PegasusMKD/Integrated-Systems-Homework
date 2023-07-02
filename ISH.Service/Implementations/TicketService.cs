@@ -39,12 +39,14 @@ namespace ISH.Service.Implementations
                 SeatNumber = latestSeatNumber + x,
                 ViewSlot = eViewSlot
             }).Select(_baseRepository.Create)
-                .Select(_mapper.Map<TicketDto>);
-            _baseRepository.SaveChangesAsync();
-            return tickets.ToList();
+                .ToList();
+            _baseRepository.SaveChanges();
+            return tickets
+                .Select(_mapper.Map<TicketDto>)
+                .ToList();
         }
 
-        public List<TicketDto> GetAllTickets() => _baseRepository.GetAll().Select(_mapper.Map<TicketDto>).ToList();
+        public List<TicketDto> GetAllTickets() => _baseRepository.GetAll(ticket => ticket.ViewSlot).Select(_mapper.Map<TicketDto>).ToList();
 
         public List<TicketDto> GetTicketsByViewSlot(Guid viewSlotId) => _ticketRepository
             .GetTicketsByViewSlot(viewSlotId).ConvertAll(_mapper.Map<TicketDto>);

@@ -24,8 +24,8 @@ namespace ISH.Service.Implementations
 
         public List<OrderItemDto> CreateOrderItems(List<OrderItemDto> orderItems)
         {
-            var items = orderItems.Select(item => _baseRepository.Create(_mapper.Map<OrderItem>(item)));
-            _baseRepository.SaveChangesAsync();
+            var items = orderItems.Select(item => _baseRepository.Create(_mapper.Map<OrderItem>(item))).ToList();
+            _baseRepository.SaveChanges();
             return items.Select(_mapper.Map<OrderItemDto>).ToList();
         }
     }

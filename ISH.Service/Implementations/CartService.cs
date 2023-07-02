@@ -43,7 +43,7 @@ namespace ISH.Service.Implementations
             eCart.Tickets.Add(eTicket);
             eCart.CartPrice += eTicket.Price;
             _baseCartRepository.Update(eCart);
-            _baseCartRepository.SaveChangesAsync();
+            _baseCartRepository.SaveChanges();
             return _mapper.Map<CartDto>(eCart);
         }
 
@@ -64,7 +64,7 @@ namespace ISH.Service.Implementations
             eCart.Tickets.Remove(eTicket);
             eCart.CartPrice -= eTicket.Price;
             _baseCartRepository.Update(eCart);
-            _baseCartRepository.SaveChangesAsync();
+            _baseCartRepository.SaveChanges();
             return _mapper.Map<CartDto>(eCart);
         }
 
@@ -93,7 +93,7 @@ namespace ISH.Service.Implementations
                 User = eUser
             };
             _baseCartRepository.Create(cart);
-            _baseCartRepository.SaveChangesAsync();
+            _baseCartRepository.SaveChanges();
             return _mapper.Map<CartDto>(cart);
         }
 

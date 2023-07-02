@@ -1,4 +1,5 @@
-﻿using ISH.Data.Authentication;
+﻿using ISH.Data;
+using ISH.Data.Authentication;
 using ISH.Data.Cart;
 using ISH.Data.Orders;
 using ISH.Data.Tickets;
@@ -15,6 +16,7 @@ namespace ISH.Repository
         public DbSet<OrderItem> orderItems { get; set; }
         public DbSet<Cart> carts { get; set; }
         public DbSet<ViewSlot> viewSlots { get; set; }
+        public DbSet<MovieGenre> movieGenre { get; set; }
         public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options)
         {
         }

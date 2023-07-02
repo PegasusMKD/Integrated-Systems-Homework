@@ -37,6 +37,16 @@ General to-do items just to keep track of my work before implementing the full f
       - Invoice PDF generation
       - Sending an e-mail
 
+## Bugs
+
+ - [ ] No Movie Genre functionality
+ - [ ] Add "Include" extension to the base GetById and GetAll calls so we can fetch all needed relationships
+ - [ ] Add custom DTOs for create and update - *In Progress*
+ - [ ] Call SaveChanges after creations and updates - *In Progress*
+ - [ ] Manually set relations through fetch (rather than through DTO mapping) so context can keep track
+ - [ ] Change DTOs to receive only IDs of the relations
+ - [ ] Swap "OrderNumber" to an int instead of string
+ - [ ] Swap over from "auto-generated" identity guid to "manually" setting guid (using Guid.NewGuid()) and see whether that makes the code behaviour "more predictable"
 
 ## Requirements
 

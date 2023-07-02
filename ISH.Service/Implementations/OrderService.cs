@@ -13,22 +13,22 @@ namespace ISH.Service.Implementations
     public class OrderService : IOrderService
     {
         private readonly IBaseRepository<Order> _baseOrderRepository;
+        private readonly IBaseRepository<Ticket> _baseTicketRepository;
         private readonly ICartRepository _cartRepository;
         private readonly IUserRepository _userRepository;
         private readonly IOrderRepository _orderRepository;
         private readonly IMapper _mapper;
-        private readonly ITicketService _ticketService;
         private readonly IOrderItemService _orderItemService;
 
-        public OrderService(IBaseRepository<Order> baseOrderRepository, IMapper mapper, IOrderItemService orderItemService, IOrderRepository orderRepository, ITicketService ticketService, ICartRepository cartRepository, IUserRepository userRepository)
+        public OrderService(IBaseRepository<Order> baseOrderRepository, IMapper mapper, IOrderItemService orderItemService, IOrderRepository orderRepository, ICartRepository cartRepository, IUserRepository userRepository, IBaseRepository<Ticket> baseTicketRepository)
         {
             _baseOrderRepository = baseOrderRepository;
             _mapper = mapper;
             _orderItemService = orderItemService;
             _orderRepository = orderRepository;
-            _ticketService = ticketService;
             _cartRepository = cartRepository;
             _userRepository = userRepository;
+            _baseTicketRepository = baseTicketRepository;
         }
 
         public OrderDto CreateOrder(string userId)
@@ -49,16 +49,18 @@ namespace ISH.Service.Implementations
 
                 eCartTicket.TicketStatus = TicketStatus.Bought;
                 eCartTicket.BoughtBy = eCart.User;
-                _ticketService.UpdateTicket(_mapper.Map<TicketDto>(eCartTicket));
+                _baseTicketRepository.Update(eCartTicket);
             }
 
             var order = new Order
             {
+                OrderNumber = Guid.NewGuid().ToString(),
                 OrderedBy = eCart.User,
                 TotalPrice = eCart.Tickets.Sum(ticket => ticket.Price)
             };
 
             order = _baseOrderRepository.Create(order);
+            _baseOrderRepository.SaveChanges();
 
             var orderItems = eCart.Tickets.GroupBy(
                 ticket => ticket.ViewSlot.Guid,
@@ -81,7 +83,7 @@ namespace ISH.Service.Implementations
             ).Select(_mapper.Map<OrderItemDto>).ToList();
             orderItems = _orderItemService.CreateOrderItems(orderItems);
 
-            _baseOrderRepository.SaveChangesAsync();
+            _baseOrderRepository.SaveChanges();
 
             var orderDto = _mapper.Map<OrderDto>(order);
             orderDto.Items = orderItems;

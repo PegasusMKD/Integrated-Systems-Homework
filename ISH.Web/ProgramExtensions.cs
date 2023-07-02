@@ -24,6 +24,7 @@ namespace Integrated_Systems_Homework
             services.AddTransient(typeof(IBaseRepository<>), typeof(BaseRepository<>));
             services.AddTransient<ICartRepository, CartRepository>();
             services.AddTransient<IUserRepository, UserRepository>();
+            services.AddTransient<IMovieGenreRepository, MovieGenreRepository>();
             services.AddTransient<IOrderItemRepository, OrderItemRepository>();
             services.AddTransient<IOrderRepository, OrderRepository>();
             services.AddTransient<ITicketRepository, TicketRepository>();
