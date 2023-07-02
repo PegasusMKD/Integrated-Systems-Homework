@@ -1,7 +1,9 @@
-﻿using AutoMapper;
+﻿using System.Security.Claims;
+using AutoMapper;
 using ISH.Data.Authentication;
 using ISH.Repository;
 using ISH.Service.Dtos.Authentication;
+using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace ISH.Service.Implementations
 {
@@ -24,6 +26,12 @@ namespace ISH.Service.Implementations
 
         public UserDto GetUserById(string id) =>
             _mapper.Map<UserDto>(_userRepository.GetUserById(id));
+
+        public UserDto? GetUserByClaims(ClaimsPrincipal claimsPrincipal)
+        {
+            var usernameClaim = claimsPrincipal.Identity!.Name;
+            return usernameClaim == null ? null : GetUser(usernameClaim);
+        }
 
         public List<UserDto> GetUsers() =>
             _userRepository.GetAllUsers().ConvertAll(_mapper.Map<UserDto>);

@@ -56,6 +56,7 @@ namespace Integrated_Systems_Homework
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IOrderItemService, OrderItemService>();
             services.AddScoped<IOrderService, OrderService>();
+            services.AddScoped<IViewSlotService, ViewSlotService>();
             services.AddScoped<ITicketService, TicketService>();
             return services;
         }

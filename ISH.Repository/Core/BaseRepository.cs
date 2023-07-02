@@ -5,19 +5,24 @@ namespace ISH.Repository.Core
 {
     public class BaseRepository<T>: IBaseRepository<T> where T : BaseEntity
     {
-        private readonly ApplicationContext context;
+        private readonly ApplicationContext _context;
 
 
-        public List<T> GetAll() => context.Set<T>().ToList();
+        public BaseRepository(ApplicationContext context)
+        {
+            this._context = context;
+        }
 
-        public T? GetById(Guid id) => context.Set<T>().SingleOrDefault(e => e.Guid == id);
+        public List<T> GetAll() => _context.Set<T>().ToList();
 
-        public T Create(T entity) => context.Set<T>().Add(entity).Entity;
+        public T? GetById(Guid id) => _context.Set<T>().SingleOrDefault(e => e.Guid == id);
 
-        public T Update(T entity) => context.Set<T>().Update(entity).Entity;
+        public T Create(T entity) => _context.Set<T>().Add(entity).Entity;
 
-        public void Delete(Guid id) => context.Set<T>().Remove(GetById(id)!);
+        public T Update(T entity) => _context.Set<T>().Update(entity).Entity;
 
-        public void SaveChangesAsync() => context.SaveChangesAsync();
+        public void Delete(Guid id) => _context.Set<T>().Remove(GetById(id)!);
+
+        public void SaveChangesAsync() => _context.SaveChangesAsync();
     }
 }

@@ -18,7 +18,7 @@ namespace Integrated_Systems_Homework.Controllers
             _cartService = cartService;
         }
 
-        [HttpGet("user/{id}")]
+        [HttpGet("by-user/{id}")]
         public IActionResult GetByUser([FromRoute] string id) => Ok(_cartService.GetCartByUser(id));
 
         [HttpGet("{id}")]

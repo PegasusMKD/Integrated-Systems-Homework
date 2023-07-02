@@ -1,4 +1,5 @@
-﻿using ISH.Service;
+﻿using System.Diagnostics;
+using ISH.Service;
 using ISH.Service.Dtos.Tickets;
 using Microsoft.AspNetCore.Mvc;
 

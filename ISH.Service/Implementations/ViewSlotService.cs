@@ -21,7 +21,7 @@ namespace ISH.Service.Implementations
 
         public ViewSlotDto GetById(Guid id) => _mapper.Map<ViewSlotDto>(_baseRepository.GetById(id));
 
-        public List<ViewSlotDto> GetAllViewSlots() =>
+        public List<ViewSlotDto> GetAllViewSlots() => 
             _baseRepository.GetAll().Select(slot => _mapper.Map<ViewSlotDto>(slot)).ToList();
 
         public ViewSlotDto UpdateViewSlot(ViewSlotDto viewSlot) =>

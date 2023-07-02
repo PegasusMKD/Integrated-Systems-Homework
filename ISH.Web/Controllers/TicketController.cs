@@ -20,7 +20,7 @@ namespace Integrated_Systems_Homework.Controllers
         [HttpGet("{id}")]
         public IActionResult GetById([FromRoute] Guid id) => Ok(_ticketService.GetById(id));
 
-        [HttpGet("view-slot/{id}")]
+        [HttpGet("by-view-slot/{id}")]
         public IActionResult GetByViewSlot([FromRoute] Guid id) => Ok(_ticketService.GetTicketsByViewSlot(id));
 
         [HttpPost("filter")]
@@ -35,7 +35,7 @@ namespace Integrated_Systems_Homework.Controllers
         [HttpDelete("{id}")]
         public void Delete([FromRoute] Guid id) => _ticketService.DeleteTicket(id);
 
-        [HttpPost("view-slot")]
+        [HttpPost("for-view-slot")]
         public IActionResult CreateXForViewSlot([FromBody] CreateXTicketsDto createXTickets) =>
             Ok(_ticketService.CreateXTicketsForViewSlot(createXTickets.viewSlotId, createXTickets.xTickets));
 
