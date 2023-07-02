@@ -18,28 +18,18 @@ namespace Integrated_Systems_Homework.Controllers
         }
 
         [HttpGet("get-user-details")]
-        public IActionResult GetUserDetails([FromQuery(Name = "username")] string username)
+        public IActionResult GetUserDetails()
         {
-            var user = _userService.GetUser(username);
-            if (user != null)
-            {
-                UserDto userDto = new()
-                {
-                    Id = user.Id,
-                    UserName = user.UserName,
-                };
-                return Ok(userDto);
-            }
-            else
-                return NotFound("User not found");
+            var user = _userService.GetUserByClaims(HttpContext.User);
+            return user != null ? Ok(user) : NotFound("User not found");
         }
 
         [HttpPut("update-user-details")]
-        public IActionResult UpdateUserDetails([FromBody] UserDto userDTO)
+        public IActionResult UpdateUserDetails([FromBody] UserDto userDto)
         {
             try
             {
-                _userService.UpdateUser(userDTO);
+                _userService.UpdateUser(userDto);
                 return Ok();
             }
             catch (Exception ex)

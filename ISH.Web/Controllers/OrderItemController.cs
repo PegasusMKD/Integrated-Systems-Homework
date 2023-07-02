@@ -1,9 +1,12 @@
 ﻿using ISH.Service;
 using ISH.Service.Dtos.Orders;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Integrated_Systems_Homework.Controllers
 {
+    // TODO: Check if this controller even needs to exist
+    [Authorize]
     [ApiController]
     [Route("api/order-items")]
     public class OrderItemController : ControllerBase

@@ -5,7 +5,7 @@ namespace ISH.Service
 {
     public interface IOrderService
     {
-        OrderDto CreateOrder(Guid cartId);
+        OrderDto CreateOrder(string userId);
         void NotifyUser(OrderDto order);
         void GenerateInvoice(Guid orderId); // TODO: See what return type needs to go here
         List<OrderDto> GetOrdersByUser(string userId);

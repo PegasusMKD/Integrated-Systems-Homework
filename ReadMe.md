@@ -25,7 +25,7 @@ General to-do items just to keep track of my work before implementing the full f
  - [X] Test existing Identity functionality
  - [X] Implement Swagger
  - [X] Configure Identity roles for each user type
- - [ ] Auto-magically fetch user where needed using the token - *In Progress*
+ - [X] Auto-magically fetch user where needed using the token
  - [ ] Start testing endpoints through Swagger
  - [ ] Implement views
  - [ ] Test/Experiment with controllers and views to see how well it works
