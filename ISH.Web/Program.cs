@@ -1,7 +1,6 @@
 using Integrated_Systems_Homework;
 using ISH.Repository;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,25 +22,22 @@ builder.Services.AddSwaggerSecurity();
 
 builder.Services.Configure(builder.Configuration);
 
-//builder.Services.AddLazyResolution();
 builder.Services.AddRepositories();
 builder.Services.AddServices();
 builder.Services.AddStripeInfrastructure(builder.Configuration);
 
 var app = builder.Build();
 
+
 using (var scope = app.Services.CreateScope())
 {
     var dataContext = scope.ServiceProvider.GetRequiredService<ApplicationContext>();
     dataContext.Database.Migrate();
+    await ApplicationInitializer.GenerateRoles(scope.ServiceProvider);
 }
 
-// Configure the HTTP request pipeline.
-//if (app.Environment.IsDevelopment())
-//{
 app.UseSwagger();
 app.UseSwaggerUI();
-//}
 
 app.UseCors("FrontendOrigins");
 

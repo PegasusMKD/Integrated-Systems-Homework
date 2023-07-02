@@ -104,7 +104,7 @@ namespace ISH.Repository.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("carts");
+                    b.ToTable("carts", (string)null);
                 });
 
             modelBuilder.Entity("ISH.Data.MovieGenre", b =>
@@ -124,7 +124,7 @@ namespace ISH.Repository.Migrations
                     b.HasIndex("Name")
                         .IsUnique();
 
-                    b.ToTable("MovieGenre");
+                    b.ToTable("MovieGenre", (string)null);
                 });
 
             modelBuilder.Entity("ISH.Data.Orders.Order", b =>
@@ -148,7 +148,7 @@ namespace ISH.Repository.Migrations
 
                     b.HasIndex("OrderedById");
 
-                    b.ToTable("orders");
+                    b.ToTable("orders", (string)null);
                 });
 
             modelBuilder.Entity("ISH.Data.Orders.OrderItem", b =>
@@ -183,7 +183,7 @@ namespace ISH.Repository.Migrations
 
                     b.HasIndex("OrderGuid");
 
-                    b.ToTable("orderItems");
+                    b.ToTable("orderItems", (string)null);
                 });
 
             modelBuilder.Entity("ISH.Data.Tickets.Ticket", b =>
@@ -219,7 +219,7 @@ namespace ISH.Repository.Migrations
 
                     b.HasIndex("ViewSlotGuid");
 
-                    b.ToTable("tickets");
+                    b.ToTable("tickets", (string)null);
                 });
 
             modelBuilder.Entity("ISH.Data.Tickets.ViewSlot", b =>
@@ -242,7 +242,7 @@ namespace ISH.Repository.Migrations
 
                     b.HasIndex("GenreId");
 
-                    b.ToTable("viewSlots");
+                    b.ToTable("viewSlots", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

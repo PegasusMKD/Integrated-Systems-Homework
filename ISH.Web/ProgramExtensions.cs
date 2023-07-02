@@ -11,6 +11,8 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using System.Data;
+using ISH.Service.Dtos.Authentication;
 
 namespace Integrated_Systems_Homework
 {
@@ -131,6 +133,22 @@ namespace Integrated_Systems_Homework
             }));
 
             return services;
+        }
+    }
+
+
+    public static class ApplicationInitializer
+    {
+        public static async Task GenerateRoles(IServiceProvider serviceProvider)
+        {
+            var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+            foreach (var role in Enum.GetNames(typeof(UserRoles)))
+            {
+                if (!await roleManager.RoleExistsAsync(role))
+                {
+                    await roleManager.CreateAsync(new IdentityRole(role));
+                }
+            }
         }
     }
 }

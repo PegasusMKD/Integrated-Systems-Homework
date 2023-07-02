@@ -6,9 +6,11 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using AutoMapper;
 using ISH.Data.Authentication;
 using ISH.Service.Dtos.Authentication;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.OpenApi.Extensions;
 
 namespace Integrated_Systems_Homework.Controllers
 {
@@ -18,18 +20,17 @@ namespace Integrated_Systems_Homework.Controllers
     public class AuthController : ControllerBase
     {
         private readonly UserManager<User> _userManager;
-        private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IConfiguration _configuration;
+        private readonly IMapper _mapper;
 
         public AuthController(
-            UserManager<User> baseUser,
-            RoleManager<IdentityRole> roleManager,
+            UserManager<User> userManager,
             IConfiguration configuration,
-            IHttpContextAccessor contextAccessor)
+            IMapper mapper)
         {
-            _userManager = baseUser;
-            _roleManager = roleManager;
+            _userManager = userManager;
             _configuration = configuration;
+            _mapper = mapper;
         }
 
         [HttpPost]
@@ -57,6 +58,7 @@ namespace Integrated_Systems_Homework.Controllers
             {
                 token = new JwtSecurityTokenHandler().WriteToken(token),
                 expiration = token.ValidTo,
+                roles = userRoles,
                 user.UserName
             });
         }
@@ -100,42 +102,12 @@ namespace Integrated_Systems_Homework.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, new());
             }
 
-            //if (registerDto.Role.Equals(UserRoles.Tutor))
-            //{
-            //    user.Tutor = _tutorService.CreateSubUser(user);
-            //    await _userManager.UpdateAsync(user);
-            //}
-            //else
-            //{
-            //    user.Student = _studentService.CreateSubUser(user);
-            //    await _userManager.UpdateAsync(user);
-            //}
+            await _userManager.AddToRoleAsync(user, UserRoles.User.GetDisplayName());
+            //
 
-            //bool doesRoleExist = _roleManager.Roles.Any(role => role.Name.Equals(registerDto.Role));
-
-
-            //switch (registerDto.Role)
-            //{
-            //    case UserRoles.Student:
-            //        if (!doesRoleExist)
-            //        {
-            //            await _roleManager.CreateAsync(new IdentityRole(UserRoles.Student));
-            //        }
-            //        await _userManager.AddToRoleAsync(user, UserRoles.Student);
-            //        break;
-            //    case UserRoles.Tutor:
-            //        if (!doesRoleExist)
-            //        {
-            //            await _roleManager.CreateAsync(new IdentityRole(UserRoles.Tutor));
-            //        }
-            //        await _userManager.AddToRoleAsync(user, UserRoles.Tutor);
-            //        break;
-            //    default:
-            //        return StatusCode(StatusCodes.Status400BadRequest, new());
-            //}
-
-
-            return Ok(new());
+            UserDto dto = _mapper.Map<UserDto>(user);
+            dto.Roles = (await _userManager.GetRolesAsync(user)).ToArray();
+            return Ok(dto);
         }
 
         private JwtSecurityToken GetToken(List<Claim> authClaims)
