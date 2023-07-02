@@ -22,9 +22,10 @@ General to-do items just to keep track of my work before implementing the full f
  - [X] Test migrations
  - [X] Configure & Setup Base Identity Users
  - [X] Configure & Setup Auth Functionality with JWT
- - [ ] Test existing Identity functionality - *In Progress*
- - [ ] Configure Identity - *In Progress*
- - [ ] Implement Swagger
+ - [X] Test existing Identity functionality
+ - [X] Implement Swagger
+ - [ ] Configure Identity roles for each user type - *In Progress*
+ - [ ] Auto-magically fetch user where needed using the token - *In Progress*
  - [ ] Start testing endpoints through Swagger
  - [ ] Implement views
  - [ ] Test/Experiment with controllers and views to see how well it works

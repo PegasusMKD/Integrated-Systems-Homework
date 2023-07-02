@@ -25,6 +25,7 @@ namespace Integrated_Systems_Homework.Controllers
             {
                 UserDto userDto = new()
                 {
+                    Id = user.Id,
                     UserName = user.UserName,
                 };
                 return Ok(userDto);
