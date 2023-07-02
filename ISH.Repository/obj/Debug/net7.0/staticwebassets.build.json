@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "1DnXm6KYS2dP8tXBqLotq5HHdbW0/qhw5hpilpSjCyQ=",
+  "Hash": "uLtD0CLbLU2+GHY0snJFttb8R27aR56RUCow6+/Pp/s=",
   "Source": "ISH.Repository",
   "BasePath": "_content/ISH.Repository",
   "Mode": "Default",
@@ -11,10 +11,10 @@
       "Version": 2,
       "Source": "ISH.Data",
       "GetPublishAssetsTargets": "ComputeReferencedStaticWebAssetsPublishManifest;GetCurrentProjectPublishStaticWebAssetItems",
-      "AdditionalPublishProperties": "",
+      "AdditionalPublishProperties": "Configuration=Debug;Platform=AnyCPU",
       "AdditionalPublishPropertiesToRemove": "WebPublishProfileFile;TargetFramework;RuntimeIdentifier;SelfContained",
       "GetBuildAssetsTargets": "GetCurrentProjectBuildStaticWebAssetItems",
-      "AdditionalBuildProperties": "",
+      "AdditionalBuildProperties": "Configuration=Debug;Platform=AnyCPU",
       "AdditionalBuildPropertiesToRemove": "WebPublishProfileFile;TargetFramework;RuntimeIdentifier;SelfContained"
     }
   ],

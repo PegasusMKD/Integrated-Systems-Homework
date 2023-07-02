@@ -35,7 +35,7 @@ namespace Integrated_Systems_Homework.Controllers
         [HttpDelete("{id}")]
         public void Delete([FromRoute] Guid id) => _ticketService.DeleteTicket(id);
 
-        [HttpPost]
+        [HttpPost("view-slot")]
         public IActionResult CreateXForViewSlot([FromBody] CreateXTicketsDto createXTickets) =>
             Ok(_ticketService.CreateXTicketsForViewSlot(createXTickets.viewSlotId, createXTickets.xTickets));
 

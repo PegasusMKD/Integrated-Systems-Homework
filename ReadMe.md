@@ -19,8 +19,8 @@ General to-do items just to keep track of my work before implementing the full f
  - [X] Configure application
  - [X] Configure a database (MS SQL)
  - [X] Create migrations
- - [ ] Test migrations - *In Progress*
- - [ ] Configure Identity
+ - [X] Test migrations
+ - [ ] Configure Identity - *In Progress*
  - [ ] Implement Swagger
  - [ ] Start testing endpoints through Swagger
  - [ ] Implement views
