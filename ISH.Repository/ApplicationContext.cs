@@ -2,12 +2,13 @@
 using ISH.Data.Cart;
 using ISH.Data.Orders;
 using ISH.Data.Tickets;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 
 namespace ISH.Repository
 {
-    public class ApplicationContext : DbContext
+    public class ApplicationContext : IdentityDbContext<User>
     {
         public DbSet<Ticket> tickets { get; set; }
         public DbSet<Order> orders { get; set; }

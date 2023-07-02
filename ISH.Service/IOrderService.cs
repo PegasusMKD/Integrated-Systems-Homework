@@ -8,7 +8,7 @@ namespace ISH.Service
         OrderDto CreateOrder(Guid cartId);
         void NotifyUser(OrderDto order);
         void GenerateInvoice(Guid orderId); // TODO: See what return type needs to go here
-        List<OrderDto> GetOrdersByUser(Guid userId);
+        List<OrderDto> GetOrdersByUser(string userId);
         List<OrderDto> GetOrders();
 
     }

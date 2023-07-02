@@ -1,10 +1,15 @@
-﻿using AutoMapper;
+﻿using System.Text;
+using AutoMapper;
+using ISH.Data.Authentication;
 using Microsoft.EntityFrameworkCore;
 using ISH.Repository;
 using ISH.Repository.Core;
 using ISH.Repository.Implementations;
 using ISH.Service;
 using ISH.Service.Implementations;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
 namespace Integrated_Systems_Homework
@@ -16,6 +21,7 @@ namespace Integrated_Systems_Homework
         {
             services.AddTransient(typeof(IBaseRepository<>), typeof(BaseRepository<>));
             services.AddTransient<ICartRepository, CartRepository>();
+            services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<IOrderItemRepository, OrderItemRepository>();
             services.AddTransient<IOrderRepository, OrderRepository>();
             services.AddTransient<ITicketRepository, TicketRepository>();
@@ -45,41 +51,42 @@ namespace Integrated_Systems_Homework
         {
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddScoped<ICartService, CartService>();
+            services.AddScoped<IUserService, UserService>();
             services.AddScoped<IOrderItemService, OrderItemService>();
             services.AddScoped<IOrderService, OrderService>();
             services.AddScoped<ITicketService, TicketService>();
             return services;
         }
 
-        //public static IServiceCollection AddJwt(this IServiceCollection services, ConfigurationManager configuration)
-        //{
-        //    services.AddAuthentication(options =>
-        //    {
-        //        options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-        //        options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-        //        options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-        //    }).AddJwtBearer(options =>
-        //    {
-        //        options.SaveToken = true;
-        //        options.RequireHttpsMetadata = false;
-        //        options.TokenValidationParameters = new TokenValidationParameters()
-        //        {
-        //            ValidateIssuer = true,
-        //            ValidateAudience = true,
-        //            ValidAudience = configuration["JWT:Audience"],
-        //            ValidIssuer = configuration["JWT:Issuer"],
-        //            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JWT:Secret"]))
-        //        };
-        //    });
+        public static IServiceCollection AddJwt(this IServiceCollection services, ConfigurationManager configuration)
+        {
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(options =>
+            {
+                options.SaveToken = true;
+                options.RequireHttpsMetadata = false;
+                options.TokenValidationParameters = new TokenValidationParameters()
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidAudience = configuration["JWT:Audience"],
+                    ValidIssuer = configuration["JWT:Issuer"],
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JWT:Secret"]))
+                };
+            });
 
-        //    return services;
-        //}
+            return services;
+        }
 
         public static IServiceCollection AddDbContextAndIdentity(this IServiceCollection services, ConfigurationManager configuration)
         {
             var connectionString = configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<ApplicationContext>(x => x.UseSqlServer(connectionString));
-            //services.AddIdentity<BaseUser, IdentityRole>().AddEntityFrameworkStores<ApplicationContext>().AddDefaultTokenProviders();
+            services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<ApplicationContext>().AddDefaultTokenProviders();
             return services;
         }
 

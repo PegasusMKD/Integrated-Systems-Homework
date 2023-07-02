@@ -1,6 +1,9 @@
-﻿namespace ISH.Data.Authentication
+﻿using Microsoft.AspNetCore.Identity;
+
+namespace ISH.Data.Authentication
 {
-    public class User : BaseEntity
+    public class User : IdentityUser
     {
+
     }
 }

@@ -4,6 +4,6 @@ namespace ISH.Repository
 {
     public interface ICartRepository
     {
-        Cart GetCartByUser(Guid userId);
+        Cart GetCartByUser(string userId);
     }
 }

@@ -9,6 +9,6 @@ namespace ISH.Service
         CartDto RemoveTicket(Guid cartId, Guid ticketId);
         CartDto GetCartById(Guid id);
         void DeleteCartById(Guid id);
-        CartDto GetCartByUser(Guid userId);
+        CartDto GetCartByUser(string userId);
     }
 }

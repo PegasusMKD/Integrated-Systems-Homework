@@ -28,6 +28,6 @@ namespace Integrated_Systems_Homework.Controllers
         public IActionResult GetAll() => Ok(_orderService.GetOrders());
 
         [HttpGet("user/{id}")]
-        public IActionResult GetByUser([FromRoute] Guid id) => Ok(_orderService.GetOrdersByUser(id));
+        public IActionResult GetByUser([FromRoute] string id) => Ok(_orderService.GetOrdersByUser(id));
     }
 }

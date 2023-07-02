@@ -20,6 +20,9 @@ General to-do items just to keep track of my work before implementing the full f
  - [X] Configure a database (MS SQL)
  - [X] Create migrations
  - [X] Test migrations
+ - [X] Configure & Setup Base Identity Users
+ - [X] Configure & Setup Auth Functionality with JWT
+ - [ ] Test existing Identity functionality - *In Progress*
  - [ ] Configure Identity - *In Progress*
  - [ ] Implement Swagger
  - [ ] Start testing endpoints through Swagger

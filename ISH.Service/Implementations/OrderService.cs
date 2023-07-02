@@ -93,7 +93,7 @@ namespace ISH.Service.Implementations
             throw new NotImplementedException();
         }
 
-        public List<OrderDto> GetOrdersByUser(Guid userId) =>
+        public List<OrderDto> GetOrdersByUser(string userId) =>
             _orderRepository.GetAllByBoughtBy(userId).Select(_mapper.Map<OrderDto>).ToList();
 
         public List<OrderDto> GetOrders() => 

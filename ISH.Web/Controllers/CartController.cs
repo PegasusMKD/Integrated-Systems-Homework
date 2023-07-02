@@ -19,7 +19,7 @@ namespace Integrated_Systems_Homework.Controllers
         }
 
         [HttpGet("user/{id}")]
-        public IActionResult GetByUser([FromRoute] Guid id) => Ok(_cartService.GetCartByUser(id));
+        public IActionResult GetByUser([FromRoute] string id) => Ok(_cartService.GetCartByUser(id));
 
         [HttpGet("{id}")]
         public IActionResult GetById([FromRoute] Guid id) => Ok(_cartService.GetCartById(id));
