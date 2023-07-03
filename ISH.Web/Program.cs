@@ -25,6 +25,7 @@ builder.Services.Configure(builder.Configuration);
 builder.Services.AddRepositories();
 builder.Services.AddServices();
 builder.Services.AddStripeInfrastructure(builder.Configuration);
+builder.Services.AddMvc();
 
 var app = builder.Build();
 

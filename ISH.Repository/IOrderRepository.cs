@@ -4,7 +4,8 @@ namespace ISH.Repository
 {
     public interface IOrderRepository
     {
-        List<Order> GetAllByBoughtByWithOrderedByAndItems(string userId);
-        List<Order> GetAllByWithOrderedByAndItems();
+        List<Order> GetAllByBoughtByWithOrderedBy(string userId);
+        Order GetByIdWithOrderedBy(Guid orderId);
+        List<Order> GetAllByWithOrderedBy();
     }
 }

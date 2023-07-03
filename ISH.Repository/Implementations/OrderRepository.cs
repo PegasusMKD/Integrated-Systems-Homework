@@ -12,10 +12,13 @@ namespace ISH.Repository.Implementations
             _context = context;
         }
 
-        public List<Order> GetAllByBoughtByWithOrderedByAndItems(string userId) =>
+        public List<Order> GetAllByBoughtByWithOrderedBy(string userId) =>
             _context.orders.Where(order => order.OrderedBy.Id == userId).Include(order => order.OrderedBy).ToList();
 
-        public List<Order> GetAllByWithOrderedByAndItems() =>
+        public Order GetByIdWithOrderedBy(Guid orderId) =>
+            _context.orders.Include(order => order.OrderedBy).SingleOrDefault(order => order.Guid == orderId);
+
+        public List<Order> GetAllByWithOrderedBy() =>
             _context.orders.Include(order => order.OrderedBy).ToList();
     }
 }

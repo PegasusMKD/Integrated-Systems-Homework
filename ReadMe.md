@@ -30,7 +30,7 @@ General to-do items just to keep track of my work before implementing the full f
  - [ ] Implement required 3rd-party functionality - *In Progress*
       - Stripe payment - **Implemented**
       - Excel import/export - **Implemented**
-      - Invoice PDF generation - https://ironpdf.com/tutorials/dotnet-core-pdf-generating/
+      - Invoice PDF generation - https://ironpdf.com/tutorials/dotnet-core-pdf-generating/ - **Implemented**
       - Sending an e-mail - https://mailtrap.io/blog/asp-net-core-send-email/
  - [ ] Implement views
  - [ ] Test/Experiment with controllers and views to see how well it works

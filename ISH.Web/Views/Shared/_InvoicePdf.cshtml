@@ -1,0 +1,73 @@
+﻿@model ISH.Service.Dtos.Orders.OrderDto
+
+@{
+    ViewData["Title"] = "_InvoicePdf";
+}
+
+<style>
+    .row {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    td {
+        text-align: center;
+        padding-left: 0.5em;
+        padding-right: 0.5em;
+        padding-top: 0.25em;
+    }
+
+    thead tr {
+        background-color: #20b2aa;
+        border: 2px solid #20b2aa;
+    }
+
+    tbody:before {
+        content: "-";
+        display: block;
+        line-height: 0.5em;
+        color: transparent;
+    }
+
+    table tr td {
+        border-right: 2px solid #dedede;
+        border-top: 1px solid#000000;
+        color: black;
+    }
+
+    tbody tr {
+        border: 2px solid #20b2aa;
+    }
+
+</style>
+
+<div class="row">
+    <div></div>
+    <div>
+        <h2>Invoice #@Model.OrderNumber</h2>
+        <h4>
+            Total Price: @Model.TotalPrice <br />
+            Username: @Model.OrderedBy.UserName
+        </h4>
+    </div>
+</div>
+
+<table>
+    <thead>
+        <tr>
+            <td>Movie Name</td>
+            <td>Time Slot</td>
+            <td>Ticket Price</td>
+            <td>Quantity</td>
+            <td>Item Price</td>
+            <td>Comment</td>
+        </tr>
+    </thead>
+
+    <tbody>
+        @Html.DisplayFor(m => m.Items)
+    </tbody>
+</table>
+
+
+

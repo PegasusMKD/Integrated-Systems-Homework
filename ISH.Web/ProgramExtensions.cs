@@ -14,6 +14,8 @@ using Microsoft.OpenApi.Models;
 using System.Data;
 using ISH.Service.Dtos.Authentication;
 using Stripe;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace Integrated_Systems_Homework
 {
@@ -56,6 +58,8 @@ namespace Integrated_Systems_Homework
         public static IServiceCollection AddServices(this IServiceCollection services)
         {
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
             services.AddScoped<ICartService, CartService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IMovieGenreService, MovieGenreService>();

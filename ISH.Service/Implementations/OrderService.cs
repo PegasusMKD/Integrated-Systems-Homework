@@ -27,7 +27,11 @@ namespace ISH.Service.Implementations
 
         private readonly IMapper _mapper;
 
-        public OrderService(IBaseRepository<Order> baseOrderRepository, IMapper mapper, IOrderRepository orderRepository, ICartRepository cartRepository, IUserRepository userRepository, IBaseRepository<Ticket> baseTicketRepository, IBaseRepository<OrderItem> baseOrderItemsRepository, IBaseRepository<Cart> baseCartRepository, IOrderItemRepository orderItemRepository, IStripeService stripeService)
+        public OrderService(
+            IBaseRepository<Order> baseOrderRepository, IMapper mapper, IOrderRepository orderRepository, ICartRepository cartRepository,
+            IUserRepository userRepository, IBaseRepository<Ticket> baseTicketRepository, IBaseRepository<OrderItem> baseOrderItemsRepository,
+            IBaseRepository<Cart> baseCartRepository, IOrderItemRepository orderItemRepository, IStripeService stripeService
+            )
         {
             _baseOrderRepository = baseOrderRepository;
             _mapper = mapper;
@@ -116,7 +120,7 @@ namespace ISH.Service.Implementations
         }
 
         public List<OrderDto> GetOrdersByUser(string userId) =>
-            _orderRepository.GetAllByBoughtByWithOrderedByAndItems(userId)
+            _orderRepository.GetAllByBoughtByWithOrderedBy(userId)
                 .Select(_mapper.Map<OrderDto>)
                 .Select(order =>
                 {
@@ -127,8 +131,15 @@ namespace ISH.Service.Implementations
                 })
                 .ToList();
 
+        public OrderDto GetOrderById(Guid orderId)
+        {
+            var order = _mapper.Map<OrderDto>(_orderRepository.GetByIdWithOrderedBy(orderId));
+            order.Items = _orderItemRepository.GetOrderItemsByOrder(orderId).Select(_mapper.Map<OrderItemDto>).ToList();
+            return order;
+        }
+
         public List<OrderDto> GetOrders() =>
-            _orderRepository.GetAllByWithOrderedByAndItems().Select(_mapper.Map<OrderDto>)
+            _orderRepository.GetAllByWithOrderedBy().Select(_mapper.Map<OrderDto>)
                 .Select(order =>
                 {
                     order.Items = _orderItemRepository.GetOrderItemsByOrder(order.Guid)
