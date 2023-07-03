@@ -5,6 +5,7 @@ using ISH.Data.Tickets;
 using ISH.Repository;
 using ISH.Repository.Core;
 using ISH.Repository.Implementations;
+using ISH.Service.Dtos;
 using ISH.Service.Dtos.Cart;
 using ISH.Service.Dtos.Orders;
 using ISH.Service.Dtos.Stripe;
@@ -24,14 +25,14 @@ namespace ISH.Service.Implementations
         private readonly IOrderItemRepository _orderItemRepository;
 
         private readonly IStripeService _stripeService;
+        private readonly IMailService _mailService;
 
         private readonly IMapper _mapper;
 
         public OrderService(
             IBaseRepository<Order> baseOrderRepository, IMapper mapper, IOrderRepository orderRepository, ICartRepository cartRepository,
             IUserRepository userRepository, IBaseRepository<Ticket> baseTicketRepository, IBaseRepository<OrderItem> baseOrderItemsRepository,
-            IBaseRepository<Cart> baseCartRepository, IOrderItemRepository orderItemRepository, IStripeService stripeService
-            )
+            IBaseRepository<Cart> baseCartRepository, IOrderItemRepository orderItemRepository, IStripeService stripeService, IMailService mailService)
         {
             _baseOrderRepository = baseOrderRepository;
             _mapper = mapper;
@@ -43,6 +44,7 @@ namespace ISH.Service.Implementations
             _baseCartRepository = baseCartRepository;
             _orderItemRepository = orderItemRepository;
             _stripeService = stripeService;
+            _mailService = mailService;
         }
 
         public OrderDto CreateOrder(string userId, AddStripeCard paymentDetails, CancellationToken ct)
@@ -106,17 +108,19 @@ namespace ISH.Service.Implementations
 
             var orderDto = _mapper.Map<OrderDto>(order);
             orderDto.Items = orderItems;
+            NotifyUser(orderDto);
             return orderDto;
         }
 
         public void NotifyUser(OrderDto order)
         {
-            throw new NotImplementedException();
-        }
-
-        public void GenerateInvoice(Guid orderId)
-        {
-            throw new NotImplementedException();
+            _mailService.SendMail(new MailDataDto
+            {
+                EmailBody = $"Your order was successful for \"Order#{order.OrderNumber}\"!",
+                EmailSubject = "Order confirmation - Integrated Systems",
+                EmailToId = order.OrderedBy.Email,
+                EmailToName = order.OrderedBy.UserName
+            });
         }
 
         public List<OrderDto> GetOrdersByUser(string userId) =>

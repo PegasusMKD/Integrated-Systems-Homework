@@ -16,11 +16,18 @@ using ISH.Service.Dtos.Authentication;
 using Stripe;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using Integrated_Systems_Homework.Settings;
 
 namespace Integrated_Systems_Homework
 {
     public static class ProgramExtensions
     {
+        public static IServiceCollection ConfigureEmail(this IServiceCollection services, IConfiguration configuration)
+        {
+            services.Configure<MailSettings>(configuration.GetSection("MailSettings"));
+            services.AddTransient<IMailService, MailService>();
+            return services;
+        }
 
         public static IServiceCollection AddRepositories(this IServiceCollection services)
         {
