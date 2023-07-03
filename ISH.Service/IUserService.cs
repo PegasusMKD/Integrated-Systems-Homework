@@ -1,4 +1,5 @@
 ﻿using System.Security.Claims;
+using ExcelDataReader;
 using ISH.Service.Dtos.Authentication;
 
 namespace ISH.Service
@@ -11,5 +12,6 @@ namespace ISH.Service
         void DeleteUser(string username);
         UserDto GetUserById(string id);
         UserDto? GetUserByClaims(ClaimsPrincipal  claimsPrincipal);
+        Task ImportUsers(IExcelDataReader reader);
     }
 }

@@ -1,4 +1,5 @@
-﻿using ISH.Service.Dtos.Authentication;
+﻿using ExcelDataReader;
+using ISH.Service.Dtos.Authentication;
 using ISH.Service;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -36,6 +37,26 @@ namespace Integrated_Systems_Homework.Controllers
             {
                 return StatusCode(500, ex.Message);
             }
+        }
+
+        [Authorize(Roles = "Administrator")]
+        [HttpPost("import")]
+        public async Task<IActionResult> ImportUsers(IFormFile file)
+        {
+            List<UserDto> users = new List<UserDto>();
+            // For .net core, the next line requires the NuGet package, 
+            // System.Text.Encoding.CodePages
+
+            System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
+            await using (var stream = file.OpenReadStream())
+            {
+                using (var reader = ExcelReaderFactory.CreateReader(stream))
+                {
+                    await _userService.ImportUsers(reader);
+                }
+            }
+
+            return Ok();
         }
     }
 }

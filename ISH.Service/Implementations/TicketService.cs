@@ -99,7 +99,7 @@ namespace ISH.Service.Implementations
                 worksheet.Cell(idx + 1, 2).Value = ticket.ViewSlot.MovieName;
                 worksheet.Cell(idx + 1, 3).Value = ticket.ViewSlot.TimeSlot;
                 worksheet.Cell(idx + 1, 4).Value = ticket.ViewSlot.Genre.Name;
-                worksheet.Cell(idx + 1, 5).Value = ticket.TicketStatus.GetDisplayName();
+                worksheet.Cell(idx + 1, 5).Value = ticket.TicketStatus.GetDisplay();
                 worksheet.Cell(idx + 1, 6).Value = ticket.SeatNumber;
                 worksheet.Cell(idx + 1, 7).Value = ticket.Price;
                 worksheet.Cell(idx + 1, 8).Value = ticket.BoughtBy != null ? ticket.BoughtBy.UserName : "";

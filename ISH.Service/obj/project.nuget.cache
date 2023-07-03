@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "4NFHZKTpw1C3hzV2HlaIF/sm/WzIjveNok3GM7zV9Sk4W12Ido8BxzKaYGvcxeGGQmv7MeeoO3ZpAN2CtnIP9A==",
+  "dgSpecHash": "BvMnigmdwRs9xACGZuklRgcqgQMOw8r60AF1gZ2aH0vUtOL9YYDva29ZktgvkK9hcIFN/L8/XugJFqEW25Reww==",
   "success": true,
   "projectFilePath": "C:\\Programming\\C#\\Integrated-Systems-Homework\\ISH.Service\\ISH.Service.csproj",
   "expectedPackageFiles": [
@@ -10,6 +10,7 @@
     "C:\\Users\\Pazzio\\.nuget\\packages\\azure.identity\\1.6.0\\azure.identity.1.6.0.nupkg.sha512",
     "C:\\Users\\Pazzio\\.nuget\\packages\\closedxml\\0.102.0\\closedxml.0.102.0.nupkg.sha512",
     "C:\\Users\\Pazzio\\.nuget\\packages\\documentformat.openxml\\2.16.0\\documentformat.openxml.2.16.0.nupkg.sha512",
+    "C:\\Users\\Pazzio\\.nuget\\packages\\exceldatareader\\3.6.0\\exceldatareader.3.6.0.nupkg.sha512",
     "C:\\Users\\Pazzio\\.nuget\\packages\\excelnumberformat\\1.1.0\\excelnumberformat.1.1.0.nupkg.sha512",
     "C:\\Users\\Pazzio\\.nuget\\packages\\irony.netcore\\1.0.11\\irony.netcore.1.0.11.nupkg.sha512",
     "C:\\Users\\Pazzio\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\7.0.8\\microsoft.aspnetcore.cryptography.internal.7.0.8.nupkg.sha512",
