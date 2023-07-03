@@ -13,6 +13,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Data;
 using ISH.Service.Dtos.Authentication;
+using Stripe;
 
 namespace Integrated_Systems_Homework
 {
@@ -35,13 +36,13 @@ namespace Integrated_Systems_Homework
 
         public static IServiceCollection AddStripeInfrastructure(this IServiceCollection services, IConfiguration configuration)
         {
-            //StripeConfiguration.ApiKey = configuration.GetValue<string>("StripeSettings:SecretKey");
+            StripeConfiguration.ApiKey = configuration.GetValue<string>("StripeSettings:SecretKey");
 
-            //return services
-            //    .AddScoped<CustomerService>()
-            //    .AddScoped<ChargeService>()
-            //    .AddScoped<TokenService>()
-            //    .AddScoped<IStripeService, StripeService>();
+            return services
+                .AddScoped<CustomerService>()
+                .AddScoped<ChargeService>()
+                .AddScoped<TokenService>()
+                .AddScoped<IStripeService, StripeService>();
             return services;
         }
 

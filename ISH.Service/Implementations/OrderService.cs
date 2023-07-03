@@ -7,6 +7,7 @@ using ISH.Repository.Core;
 using ISH.Repository.Implementations;
 using ISH.Service.Dtos.Cart;
 using ISH.Service.Dtos.Orders;
+using ISH.Service.Dtos.Stripe;
 using ISH.Service.Dtos.Tickets;
 
 namespace ISH.Service.Implementations
@@ -21,9 +22,12 @@ namespace ISH.Service.Implementations
         private readonly IUserRepository _userRepository;
         private readonly IOrderRepository _orderRepository;
         private readonly IOrderItemRepository _orderItemRepository;
+
+        private readonly IStripeService _stripeService;
+
         private readonly IMapper _mapper;
 
-        public OrderService(IBaseRepository<Order> baseOrderRepository, IMapper mapper, IOrderRepository orderRepository, ICartRepository cartRepository, IUserRepository userRepository, IBaseRepository<Ticket> baseTicketRepository, IBaseRepository<OrderItem> baseOrderItemsRepository, IBaseRepository<Cart> baseCartRepository, IOrderItemRepository orderItemRepository)
+        public OrderService(IBaseRepository<Order> baseOrderRepository, IMapper mapper, IOrderRepository orderRepository, ICartRepository cartRepository, IUserRepository userRepository, IBaseRepository<Ticket> baseTicketRepository, IBaseRepository<OrderItem> baseOrderItemsRepository, IBaseRepository<Cart> baseCartRepository, IOrderItemRepository orderItemRepository, IStripeService stripeService)
         {
             _baseOrderRepository = baseOrderRepository;
             _mapper = mapper;
@@ -34,9 +38,10 @@ namespace ISH.Service.Implementations
             _baseOrderItemsRepository = baseOrderItemsRepository;
             _baseCartRepository = baseCartRepository;
             _orderItemRepository = orderItemRepository;
+            _stripeService = stripeService;
         }
 
-        public OrderDto CreateOrder(string userId)
+        public OrderDto CreateOrder(string userId, AddStripeCard paymentDetails, CancellationToken ct)
         {
             var eUser = _userRepository.GetUserById(userId);
             if (eUser == null)
@@ -88,6 +93,11 @@ namespace ISH.Service.Implementations
                 .ToList();
 
             _baseCartRepository.Delete(eCart.Guid);
+            var paymentSuccess = _stripeService.AddStripePaymentAsync(eUser, order.TotalPrice, paymentDetails, ct);
+            if (!paymentSuccess)
+            {
+                return null;
+            }
             _baseOrderRepository.SaveChanges();
 
             var orderDto = _mapper.Map<OrderDto>(order);

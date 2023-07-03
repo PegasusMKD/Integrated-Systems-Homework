@@ -1,4 +1,5 @@
 ﻿using ISH.Service;
+using ISH.Service.Dtos.Stripe;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -21,10 +22,10 @@ namespace Integrated_Systems_Homework.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateByCart()
+        public IActionResult CreateByCart([FromBody] AddStripeCard paymentDetails)
         {
             var user = _userService.GetUserByClaims(HttpContext.User);
-            return Ok(_orderService.CreateOrder(user!.Id!));
+            return Ok(_orderService.CreateOrder(user!.Id!, paymentDetails, HttpContext.RequestAborted));
         }
 
         // TODO: Implement

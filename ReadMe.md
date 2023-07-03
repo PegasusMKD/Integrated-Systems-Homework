@@ -28,7 +28,7 @@ General to-do items just to keep track of my work before implementing the full f
  - [X] Auto-magically fetch user where needed using the token
  - [X] Start testing endpoints through Swagger
  - [ ] Implement required 3rd-party functionality - *In Progress*
-      - Stripe payment - Lern Deutsch basically
+      - Stripe payment - **Implemented**
       - Excel import/export
       - Invoice PDF generation - https://ironpdf.com/tutorials/dotnet-core-pdf-generating/
       - Sending an e-mail - https://mailtrap.io/blog/asp-net-core-send-email/
