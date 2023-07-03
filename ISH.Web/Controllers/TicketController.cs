@@ -1,7 +1,9 @@
+using ClosedXML.Excel;
 using ISH.Service;
 using ISH.Service.Dtos.Tickets;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.OpenApi.Extensions;
 
 namespace Integrated_Systems_Homework.Controllers
 {
@@ -27,6 +29,21 @@ namespace Integrated_Systems_Homework.Controllers
 
         [HttpPost("filter")]
         public IActionResult Filter([FromBody] FilterTicketsDto filter) => Ok(_ticketService.FilterTickets(filter));
+
+        [HttpGet("excel")]
+        public IActionResult GenerateExcel([FromQuery] string? genre)
+        {
+            const string contentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+            const string fileName = "tickets.xlsx";
+
+            var tickets = _ticketService.FilterTicketsByGenre(genre);
+            using var workbook = new XLWorkbook();
+            _ticketService.GenerateExcelFromData(workbook, tickets);
+            using var stream = new MemoryStream();
+            workbook.SaveAs(stream);
+            var content = stream.ToArray();
+            return File(content, contentType, fileName);
+        }
 
         [HttpPut]
         [Authorize]

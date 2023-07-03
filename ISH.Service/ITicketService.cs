@@ -1,4 +1,5 @@
-﻿using ISH.Service.Dtos.Tickets;
+﻿using ClosedXML.Excel;
+using ISH.Service.Dtos.Tickets;
 
 namespace ISH.Service
 {
@@ -12,5 +13,7 @@ namespace ISH.Service
         List<TicketDto> FilterTickets(FilterTicketsDto filter);
         TicketDto UpdateTicket(UpdateTicketDto ticket);
         void DeleteTicket(Guid id);
+        List<TicketDto> FilterTicketsByGenre(string? genre);
+        void GenerateExcelFromData(XLWorkbook workbook, List<TicketDto> tickets);
     }
 }

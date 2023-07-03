@@ -1,11 +1,10 @@
 ﻿using AutoMapper;
-using ISH.Data.Authentication;
-using ISH.Data.Tickets;
 using ISH.Repository;
 using ISH.Repository.Core;
-using ISH.Repository.Implementations;
+using ClosedXML.Excel;
+using ISH.Data.Tickets;
 using ISH.Service.Dtos.Tickets;
-using System.Linq.Expressions;
+using ISH.Service.Extensions;
 
 namespace ISH.Service.Implementations
 {
@@ -77,6 +76,34 @@ namespace ISH.Service.Implementations
         {
             _baseRepository.Delete(id);
             _baseRepository.SaveChanges();
+        }
+
+        public List<TicketDto> FilterTicketsByGenre(string? genre) =>
+            _ticketRepository.GetAllTicketsByGenreWithViewSlotAndBoughtBy(genre).Select(_mapper.Map<TicketDto>).ToList();
+
+        public void GenerateExcelFromData(XLWorkbook workbook, List<TicketDto> tickets)
+        {
+            var worksheet = workbook.Worksheets.Add("Tickets");
+            worksheet.Cell(1, 1).Value = "Ticket Id";
+            worksheet.Cell(1, 2).Value = "Movie Name";
+            worksheet.Cell(1, 3).Value = "Time Slot";
+            worksheet.Cell(1, 4).Value = "Genre";
+            worksheet.Cell(1, 5).Value = "Status";
+            worksheet.Cell(1, 6).Value = "Seat Number";
+            worksheet.Cell(1, 7).Value = "Price";
+            worksheet.Cell(1, 8).Value = "Bought By";
+            for (var idx = 1; idx < tickets.Count; idx++)
+            {
+                var ticket = tickets[idx];
+                worksheet.Cell(idx + 1, 1).Value = ticket.Guid.ToString();
+                worksheet.Cell(idx + 1, 2).Value = ticket.ViewSlot.MovieName;
+                worksheet.Cell(idx + 1, 3).Value = ticket.ViewSlot.TimeSlot;
+                worksheet.Cell(idx + 1, 4).Value = ticket.ViewSlot.Genre.Name;
+                worksheet.Cell(idx + 1, 5).Value = ticket.TicketStatus.GetDisplayName();
+                worksheet.Cell(idx + 1, 6).Value = ticket.SeatNumber;
+                worksheet.Cell(idx + 1, 7).Value = ticket.Price;
+                worksheet.Cell(idx + 1, 8).Value = ticket.BoughtBy != null ? ticket.BoughtBy.UserName : "";
+            }
         }
     }
 }

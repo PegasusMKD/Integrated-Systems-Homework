@@ -13,7 +13,7 @@ namespace ISH.Repository.Implementations
             _context = context;
         }
 
-        public int CountTicketsByViewSlot(Guid viewSlotId) => 
+        public int CountTicketsByViewSlot(Guid viewSlotId) =>
             _context.tickets.Count(ticket => ticket.ViewSlot.Guid == viewSlotId);
 
         public List<Ticket> GetTicketsByViewSlot(Guid viewSlotId) =>
@@ -21,5 +21,13 @@ namespace ISH.Repository.Implementations
 
         public List<Ticket> GetAllTicketsWithViewSlot() =>
         _context.tickets.Include(ticket => ticket.ViewSlot).ToList();
+
+        public List<Ticket> GetAllTicketsByGenreWithViewSlotAndBoughtBy(string? genre) =>
+        _context.tickets
+            .Include(ticket => ticket.ViewSlot)
+            .ThenInclude(slot => slot.Genre)
+            .Include(ticket => ticket.BoughtBy)
+            .Where(ticket => genre == null || ticket.ViewSlot.Genre.Name == genre)
+            .ToList();
     }
 }

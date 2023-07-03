@@ -91,3 +91,10 @@ C:\Programming\C#\Integrated-Systems-Homework\ISH.Web\bin\Debug\net7.0\Microsoft
 C:\Programming\C#\Integrated-Systems-Homework\ISH.Web\bin\Debug\net7.0\Microsoft.Extensions.Identity.Core.dll
 C:\Programming\C#\Integrated-Systems-Homework\ISH.Web\bin\Debug\net7.0\Microsoft.Extensions.Identity.Stores.dll
 C:\Programming\C#\Integrated-Systems-Homework\ISH.Web\bin\Debug\net7.0\Microsoft.Extensions.Options.dll
+C:\Programming\C#\Integrated-Systems-Homework\ISH.Web\bin\Debug\net7.0\ClosedXML.dll
+C:\Programming\C#\Integrated-Systems-Homework\ISH.Web\bin\Debug\net7.0\DocumentFormat.OpenXml.dll
+C:\Programming\C#\Integrated-Systems-Homework\ISH.Web\bin\Debug\net7.0\ExcelNumberFormat.dll
+C:\Programming\C#\Integrated-Systems-Homework\ISH.Web\bin\Debug\net7.0\Irony.dll
+C:\Programming\C#\Integrated-Systems-Homework\ISH.Web\bin\Debug\net7.0\SixLabors.Fonts.dll
+C:\Programming\C#\Integrated-Systems-Homework\ISH.Web\bin\Debug\net7.0\System.IO.Packaging.dll
+C:\Programming\C#\Integrated-Systems-Homework\ISH.Web\bin\Debug\net7.0\XLParser.dll

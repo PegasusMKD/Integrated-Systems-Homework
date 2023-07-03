@@ -27,15 +27,15 @@ General to-do items just to keep track of my work before implementing the full f
  - [X] Configure Identity roles for each user type
  - [X] Auto-magically fetch user where needed using the token
  - [X] Start testing endpoints through Swagger
+ - [ ] Implement required 3rd-party functionality - *In Progress*
+      - Stripe payment - Lern Deutsch basically
+      - Excel import/export
+      - Invoice PDF generation - https://ironpdf.com/tutorials/dotnet-core-pdf-generating/
+      - Sending an e-mail - https://mailtrap.io/blog/asp-net-core-send-email/
  - [ ] Implement views
  - [ ] Test/Experiment with controllers and views to see how well it works
  - [ ] Add error checking and handling
       - For example trying to create an object when passing in a GUID, or updating one without a GUID
- - [ ] Implement required 3rd-party functionality
-      - Stripe payment
-      - Excel import/export
-      - Invoice PDF generation
-      - Sending an e-mail
 
 ## Bugs
 

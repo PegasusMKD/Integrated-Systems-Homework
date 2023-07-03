@@ -7,5 +7,6 @@ namespace ISH.Repository
         int CountTicketsByViewSlot(Guid  viewSlotId);
         List<Ticket> GetTicketsByViewSlot(Guid viewSlotId);
         List<Ticket> GetAllTicketsWithViewSlot();
+        List<Ticket> GetAllTicketsByGenreWithViewSlotAndBoughtBy(string? genre);
     }
 }
