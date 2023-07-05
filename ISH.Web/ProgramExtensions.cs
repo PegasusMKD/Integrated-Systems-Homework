@@ -68,6 +68,7 @@ namespace Integrated_Systems_Homework
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
             services.AddScoped<ICartService, CartService>();
+            services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IMovieGenreService, MovieGenreService>();
             services.AddScoped<IOrderItemService, OrderItemService>();
