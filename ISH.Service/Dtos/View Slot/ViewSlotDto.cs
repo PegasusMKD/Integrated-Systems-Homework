@@ -1,4 +1,6 @@
-﻿namespace ISH.Service.Dtos.Tickets
+﻿using ISH.Service.Dtos.Tickets;
+
+namespace ISH.Service.Dtos.View_Slot
 {
     public class ViewSlotDto
     {

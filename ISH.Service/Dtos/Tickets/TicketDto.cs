@@ -1,5 +1,6 @@
 ﻿using ISH.Data.Tickets;
 using ISH.Service.Dtos.Authentication;
+using ISH.Service.Dtos.View_Slot;
 
 namespace ISH.Service.Dtos.Tickets
 {

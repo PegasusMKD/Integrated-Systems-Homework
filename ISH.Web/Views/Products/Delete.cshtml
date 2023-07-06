@@ -1,4 +1,4 @@
-﻿@model EShop.Domain.DomainModels.Product
+﻿@model ISH.Service.Dtos.View_Slot.ViewSlotDto
 
 @{
     ViewData["Title"] = "Delete";
@@ -13,39 +13,27 @@
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ProductName)
+            @Html.DisplayNameFor(model => model.MovieName)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ProductName)
+            @Html.DisplayFor(model => model.MovieName)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ProductImage)
+            @Html.DisplayNameFor(model => model.Genre.Name)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ProductImage)
+            @Html.DisplayFor(model => model.Genre.Name)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ProductDescription)
+            @Html.DisplayNameFor(model => model.TimeSlot)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ProductDescription)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ProductPrice)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ProductPrice)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ProductRating)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ProductRating)
+            @Html.DisplayFor(model => model.TimeSlot)
         </dd>
     </dl>
     
     <form asp-action="Delete">
-        <input type="hidden" asp-for="Id" />
+        <input type="hidden" asp-for="Guid" />
         <input type="submit" value="Delete" class="btn btn-danger" /> |
         <a asp-action="Index">Back to List</a>
     </form>

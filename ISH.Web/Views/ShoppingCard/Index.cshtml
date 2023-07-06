@@ -1,17 +1,17 @@
 ﻿@using Microsoft.Extensions.Options
-@inject IOptions<EShop.Domain.StripeSettings> Stripe
-@model EShop.Domain.DTO.ShoppingCartDto
+@*@inject IOptions<EShop.Domain.StripeSettings> Stripe*@
+@model ISH.Service.Dtos.Cart.CartDto
 
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
+@*
 <div class="container">
 
 
     <div class="row m-4">
-        @if (Model.TotalPrice != 0)
+        @if (Model.CartPrice != 0)
         {
             <form asp-controller="ShoppingCard" asp-action="PayOrder" method="post">
                 <article>
@@ -20,8 +20,8 @@
                             data-key="@Stripe.Value.PublishableKey"
                             data-locale="auto"
                             data-description="EShop Application Payment"
-                            data-amount="@(Model.TotalPrice * 100)"
-                            data-label="Pay $@Model.TotalPrice">
+                            data-amount="@(Model.CartPrice * 100)"
+                            data-label="Pay $@Model.CartPrice">
                     </script>
                 </article>
             </form>
@@ -40,38 +40,38 @@
                 </tr>
             </thead>
             <tbody>
-                @if (Model.Products.Count == 0)
+                @if (Model.Tickets.Count == 0)
                 {
                     <tr>
-                        <td colspan="5">No active Products</td>
+                        <td colspan="5">No active Tickets</td>
                     </tr>
                 }
                 else
                 {
-                    @for (int i = 0; i < Model.Products.Count; i++)
+                    @for (int i = 0; i < Model.Tickets.Count; i++)
                     {
-                        var item = Model.Products[i];
+                        var item = Model.Tickets[i];
 
                         <tr>
                             <th scope="row">@(i + 1)</th>
-                            <td>@item.CurrnetProduct.ProductName</td>
+                            <td>@item.CurrentTicket.ProductName</td>
                             <td>@item.Quantity</td>
-                            <td>$@item.CurrnetProduct.ProductPrice</td>
-                            <td><a asp-controller="ShoppingCard" asp-action="DeleteFromShoppingCart" asp-route-id="@item.ProductId" class="btn btn-danger">Delete From ShoppingCart</a></td>
+                            <td>$@item.CurrentTicket.ProductPrice</td>
+                            <td><a asp-controller="ShoppingCard" asp-action="DeleteFromShoppingCart" asp-route-id="@item.Guid" class="btn btn-danger">Delete From ShoppingCart</a></td>
                         </tr>
                     }
                 }
             </tbody>
             <tfoot class="thead-dark">
                 <tr>
-                    <th scope="col">TotalPrice:</th>
+                    <th scope="col">CartPrice:</th>
                     <th scope="col"></th>
                     <th scope="col"></th>
                     <th scope="col"></th>
-                    <th scope="col">$@Model.TotalPrice</th>
+                    <th scope="col">$@Model.CartPrice</th>
                 </tr>
             </tfoot>
         </table>
     </div>
 
-</div>
+</div>*@

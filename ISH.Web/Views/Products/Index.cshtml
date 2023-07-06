@@ -1,4 +1,4 @@
-﻿@model List<EShop.Domain.DomainModels.Product>
+﻿@model List<ISH.Service.Dtos.View_Slot.ViewSlotDto>
 
 @{
     ViewData["Title"] = "Index";
@@ -24,19 +24,17 @@
 
         <div class="col-md-3 m-4">
             <div class="card" style="width: 18rem; height: 30rem;">
-                <img class="card-img-top" src="@item.ProductImage" style="height: 50%;" alt="Image for product!">
-
                 <div class="card-body">
-                    <h3 class="card-title">@item.ProductName</h3>
-                    <p class="card-text">@item.ProductDescription</p>
+                    <h3 class="card-title">@item.MovieName</h3>
+                    <p class="card-text">@item.TimeSlot</p>
                     
                     
-                    <h6>Price: $@item.ProductPrice</h6>
+                    <h6>Genre: $@item.Genre.Name</h6>
                 </div>
 
                 <div class="card-footer">
-                    <a asp-controller="Products" asp-action="AddProductToCard" asp-route-id="@item.Id" class="btn btn-info">Add to Card</a>
-                    <a asp-controller="Products" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-secondary">Edit</a>
+                    @*<a asp-controller="Products" asp-action="AddProductToCard" asp-route-id="@item.Id" class="btn btn-info">Add to Card</a>*@
+                    <a asp-controller="Products" asp-action="Edit" asp-route-id="@item.Guid" class="btn btn-secondary">Edit</a>
                 </div>
             </div>
         </div>

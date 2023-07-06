@@ -10,16 +10,18 @@ namespace ISH.Service.Implementations
     public class ViewSlotService : IViewSlotService
     {
         private readonly IBaseRepository<ViewSlot> _baseRepository;
+        private readonly ITicketService _ticketService;
         private readonly IViewSlotRepository _viewSlotRepository;
         private readonly IMovieGenreRepository _movieGenreRepository;
         private readonly IMapper _mapper;
 
-        public ViewSlotService(IBaseRepository<ViewSlot> baseRepository, IMapper mapper, IMovieGenreRepository movieGenreRepository, IViewSlotRepository viewSlotRepository)
+        public ViewSlotService(IBaseRepository<ViewSlot> baseRepository, IMapper mapper, IMovieGenreRepository movieGenreRepository, IViewSlotRepository viewSlotRepository, ITicketService ticketService)
         {
             _baseRepository = baseRepository;
             _mapper = mapper;
             _movieGenreRepository = movieGenreRepository;
             _viewSlotRepository = viewSlotRepository;
+            _ticketService = ticketService;
         }
 
         public ViewSlotDto CreateViewSlot(CreateViewSlotDto viewSlot)
@@ -31,8 +33,12 @@ namespace ISH.Service.Implementations
             return _mapper.Map<ViewSlotDto>(eViewSlot);
         }
 
-        public ViewSlotDto GetById(Guid id) => 
-            _mapper.Map<ViewSlotDto>(_viewSlotRepository.GetByIdWithGenre(id));
+        public ViewSlotDto GetById(Guid id)
+        {
+            var slot = _mapper.Map<ViewSlotDto>(_viewSlotRepository.GetByIdWithGenre(id));
+            slot.Tickets = _ticketService.GetTicketsByViewSlot(slot.Guid);
+            return slot;
+        }
 
         public List<ViewSlotDto> GetAllViewSlots() => 
             _viewSlotRepository.GetAllWithGenre().ConvertAll(_mapper.Map<ViewSlotDto>);
