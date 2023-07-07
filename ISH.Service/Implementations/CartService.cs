@@ -34,11 +34,17 @@ namespace ISH.Service.Implementations
 
             var eCart = _cartRepository.GetCartByUser(eUser.Id);
             if (eCart == null)
-                throw new Exception("Cart doesn't exist!");
+            {
+                CreateCartForUser(eUser.Id);
+                eCart = _cartRepository.GetCartByUser(eUser.Id);
+            }
 
             var eTicket = _baseTicketRepository.GetById(ticketId);
             if (eTicket == null)
                 throw new Exception("Ticket doesn't exist!");
+
+            if (eCart.Tickets.Contains(eTicket))
+                return _mapper.Map<CartDto>(eCart);
 
             eCart.Tickets.Add(eTicket);
             eCart.CartPrice += eTicket.Price;

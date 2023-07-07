@@ -17,6 +17,7 @@ using Stripe;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Integrated_Systems_Homework.Settings;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Integrated_Systems_Homework
 {
@@ -52,7 +53,6 @@ namespace Integrated_Systems_Homework
                 .AddScoped<ChargeService>()
                 .AddScoped<TokenService>()
                 .AddScoped<IStripeService, StripeService>();
-            return services;
         }
 
         public static IServiceCollection Configure(this IServiceCollection services, ConfigurationManager configuration)

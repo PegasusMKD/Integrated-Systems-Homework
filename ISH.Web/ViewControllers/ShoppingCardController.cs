@@ -11,6 +11,8 @@ using ISH.Service.Dtos.Stripe;
 
 namespace Integrated_Systems_Homework.ViewControllers
 {
+    [Controller]
+    [Route("views/shopping-cart")]
     public class ShoppingCardController : Controller
     {
 

@@ -10,28 +10,32 @@ using Stripe;
 
 namespace Integrated_Systems_Homework.ViewControllers
 {
-    public class ProductsController : Controller
+    [Controller]
+    [Route("views/view-slot")]
+    public class ViewSlotController : Controller
     {
         private readonly ITicketService _ticketService;
         private readonly IViewSlotService _viewSlotService;
-        private readonly ILogger<ProductsController> _logger;
+        private readonly ILogger<ViewSlotController> _logger;
 
-        public ProductsController(ILogger<ProductsController> logger, ITicketService productService, IViewSlotService viewSlotService)
+        public ViewSlotController(ILogger<ViewSlotController> logger, ITicketService productService, IViewSlotService viewSlotService)
         {
             _logger = logger;
             _ticketService = productService;
             _viewSlotService = viewSlotService;
         }
-            
-        // GET: Products
+
+        // GET: ViewSlot
+        [HttpGet]
         public IActionResult Index()
         {
             _logger.LogInformation("User Request -> Get All products!");
             return View(this._viewSlotService.GetAllViewSlots());
         }
 
-        // GET: Products/Details/5
-        public IActionResult Details(Guid id)
+        // GET: ViewSlot/Details/5
+        [HttpGet("details/{id}")]
+        public IActionResult Details([FromRoute] Guid id)
         {
             _logger.LogInformation("User Request -> Get Details For Product");
             if (id == null)
@@ -48,19 +52,20 @@ namespace Integrated_Systems_Homework.ViewControllers
             return View(product);
         }
 
-        // GET: Products/Create
+        // GET: ViewSlot/Create
+        [HttpGet("create")]
         public IActionResult Create()
         {
             _logger.LogInformation("User Request -> Get create form for Product!");
             return View();
         }
 
-        // POST: Products/Create
+        // POST: ViewSlot/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
+        [HttpPost("create")]
         [ValidateAntiForgeryToken]
-        public IActionResult Create([Bind("Id,ProductName,ProductImage,ProductDescription,ProductPrice,ProductRating")] CreateViewSlotDto viewSlot)
+        public IActionResult Create([Bind("MovieName,GenreId,TimeSlot")] CreateViewSlotDto viewSlot)
         {
             _logger.LogInformation("User Request -> Inser Product in DataBase!");
             if (ModelState.IsValid)
@@ -71,8 +76,9 @@ namespace Integrated_Systems_Homework.ViewControllers
             return View(viewSlot);
         }
 
-        // GET: Products/Edit/5
-        public IActionResult Edit(Guid id)
+        // GET: ViewSlot/Edit/5
+        [HttpGet("edit/{id}")]
+        public IActionResult Edit([FromRoute] Guid id)
         {
             _logger.LogInformation("User Request -> Get edit form for Product!");
             // TODO: Check how to actually implement this
@@ -84,12 +90,12 @@ namespace Integrated_Systems_Homework.ViewControllers
             return View(product);
         }
 
-        // POST: Products/Edit/5
+        // POST: ViewSlot/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
+        [HttpPost("edit/{id}")]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(Guid id, [Bind("Id,ProductName,ProductImage,ProductDescription,ProductPrice,ProductRating")] UpdateViewSlotDto product)
+        public IActionResult Edit([FromRoute] Guid id, [Bind("Guid,MovieName,TimeSlot,Genre.Id")] UpdateViewSlotDto product)
         {
             _logger.LogInformation("User Request -> Update Product in DataBase!");
 
@@ -120,8 +126,9 @@ namespace Integrated_Systems_Homework.ViewControllers
             return View(product);
         }
 
-        // GET: Products/Delete/5
-        public IActionResult Delete(Guid id)
+        // GET: ViewSlot/Delete/5
+        [HttpGet("delete/{id}")]
+        public IActionResult Delete([FromRoute] Guid id)
         {
             _logger.LogInformation("User Request -> Get delete form for Product!");
 
@@ -139,10 +146,10 @@ namespace Integrated_Systems_Homework.ViewControllers
             return View(product);
         }
 
-        // POST: Products/Delete/5
-        [HttpPost, ActionName("Delete")]
+        // POST: ViewSlot/Delete/5
+        [HttpPost("delete/{id}"), ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public IActionResult DeleteConfirmed(Guid id)
+        public IActionResult DeleteConfirmed([FromRoute] Guid id)
         {
             _logger.LogInformation("User Request -> Delete Product in DataBase!");
 
@@ -173,7 +180,7 @@ namespace Integrated_Systems_Homework.ViewControllers
 
         //    if(result)
         //    {
-        //        return RedirectToAction("Index", "Products");
+        //        return RedirectToAction("Index", "ViewSlot");
         //    }
         //    return View(model);
         //}

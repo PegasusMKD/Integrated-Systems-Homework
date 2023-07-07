@@ -7,7 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddDbContextAndIdentity(builder.Configuration);
-builder.Services.AddJwt(builder.Configuration);
+//builder.Services.AddJwt(builder.Configuration);
 builder.Services.AddAuthorization();
 
 builder.Services.AddControllers().AddJsonOptions(x =>
@@ -28,6 +28,7 @@ builder.Services.AddServices();
 builder.Services.AddStripeInfrastructure(builder.Configuration);
 builder.Services.AddMvc();
 
+
 var app = builder.Build();
 
 
@@ -40,14 +41,15 @@ using (var scope = app.Services.CreateScope())
 
 app.UseSwagger();
 app.UseSwaggerUI();
+app.UseStaticFiles();
 
 app.UseCors("FrontendOrigins");
 
 app.UseHttpsRedirection();
 
-app.UseAuthentication();
 
 app.UseAuthorization();
+app.UseAuthentication();
 app.MapControllers();
 
 app.Run();

@@ -10,6 +10,8 @@ using ISH.Data.Authentication;
 
 namespace Integrated_Systems_Homework.ViewControllers
 {
+    [Controller]
+    [Route("views/account")]
     public class AccountController : Controller
     {
         private readonly UserManager<User> userManager;
@@ -22,13 +24,14 @@ namespace Integrated_Systems_Homework.ViewControllers
             this.signInManager = signInManager;
         }
 
+        [HttpGet("register")]
         public IActionResult Register()
         {
             RegisterDto model = new();
             return View(model);
         }
 
-        [HttpPost, AllowAnonymous]
+        [HttpPost("register"), AllowAnonymous]
         public async Task<IActionResult> Register(RegisterDto request)
         {
             if (ModelState.IsValid)
@@ -44,7 +47,7 @@ namespace Integrated_Systems_Homework.ViewControllers
         }
 
 
-        [HttpGet]
+        [HttpGet("login")]
         [AllowAnonymous]
         public IActionResult Login()
         {
@@ -52,7 +55,7 @@ namespace Integrated_Systems_Homework.ViewControllers
             return View(model);
         }
 
-        [HttpPost]
+        [HttpPost("login")]
         [AllowAnonymous]
         public async Task<IActionResult> Login(LoginDto model)
         {
@@ -91,12 +94,7 @@ namespace Integrated_Systems_Homework.ViewControllers
 
         public async Task<IActionResult> Logout()
         {
-            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            var user = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            if (user != null)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, new());
-            }
+            await signInManager.SignOutAsync();
             return RedirectToAction("Login", "Account");
         }
     }

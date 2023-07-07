@@ -8,5 +8,7 @@ namespace ISH.Repository
         List<Ticket> GetTicketsByViewSlot(Guid viewSlotId);
         List<Ticket> GetAllTicketsWithViewSlot();
         List<Ticket> GetAllTicketsByGenreWithViewSlotAndBoughtBy(string? genre);
+        Ticket GetTicketWithViewSlot(Guid id);
+        List<Ticket> FilterByDates(DateTime? filterFromTimeSlot, DateTime? filterToTimeSlot);
     }
 }

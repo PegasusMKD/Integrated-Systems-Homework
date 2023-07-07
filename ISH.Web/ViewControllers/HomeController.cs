@@ -4,6 +4,8 @@ using System.Diagnostics;
 
 namespace Integrated_Systems_Homework.ViewControllers
 {
+    [Controller]
+    [Route("views/home")]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -18,12 +20,13 @@ namespace Integrated_Systems_Homework.ViewControllers
             return View();
         }
 
-
+        [HttpGet("privacy")]
         public IActionResult Privacy()
         {
             return View();
         }
 
+        [HttpGet("error")]
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

@@ -32,7 +32,7 @@ General to-do items just to keep track of my work before implementing the full f
       - Excel import/export - **Implemented**
       - Invoice PDF generation - https://ironpdf.com/tutorials/dotnet-core-pdf-generating/ - **Implemented**
       - Sending an e-mail - https://mailtrap.io/blog/asp-net-core-send-email/ - **Implemented**
- - [ ] Implement views
+ - [ ] Implement views - *In Progress*
  - [ ] Test/Experiment with controllers and views to see how well it works
  - [ ] Add error checking and handling
       - For example trying to create an object when passing in a GUID, or updating one without a GUID
@@ -56,8 +56,8 @@ Make a web application for ticket sales using Onion Architecture. The applicatio
 
 ### Authentication System
 
- - [ ] Register (by default on register every user has role "User")
- - [ ] Make the following roles available:
+ - [X] Register (by default on register every user has role "User")
+ - [X] Make the following roles available:
    - Administrator
    - User
  - [ ] Page for managing users and updating roles
@@ -65,11 +65,11 @@ Make a web application for ticket sales using Onion Architecture. The applicatio
  ### Services
 
  #### Tickets
- - [ ] CRUD operations for tickets (and related entities)
- - [ ] View to see all available tickets, and in the view, users can filter the tickets by date
+ - [X] CRUD operations for tickets (and related entities)
+ - [X] View to see all available tickets, and in the view, users can filter the tickets by date
  
  #### Cart
- - [ ] Adding tickets to a Cart (both roles should be allowed to do this)
+ - [X] Adding tickets to a Cart (both roles should be allowed to do this)
  
  #### Orders
  - [ ] Creating an Order based on the user Cart.

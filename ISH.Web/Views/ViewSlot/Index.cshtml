@@ -1,0 +1,49 @@
+﻿@model List<ISH.Service.Dtos.View_Slot.ViewSlotDto>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+
+<div class="container">
+    <div class="row">
+        <a class="btn btn-success" asp-action="Create">Insert New Product</a>
+    </div>
+    
+       @for (int i = 0; i < Model.Count; i++)
+       {
+           var item = Model[i];
+
+           if(i % 3 == 0)
+           {
+               @:<div class="row">
+           }
+
+        <div class="col-md-3 m-4">
+            <div class="card" style="width: 18rem; height: 16rem;">
+                <div class="card-body">
+                    <h3 class="card-title">@item.MovieName</h3>
+                    <p class="card-text">Time: @item.TimeSlot</p>
+                    
+                    
+                    <h6>Genre: @item.Genre.Name</h6>
+                </div>
+
+                <div class="card-footer">
+                    <a asp-controller="ViewSlot" asp-action="Details" asp-route-id="@item.Guid" class="btn btn-info">View Tickets</a>
+                    <a asp-controller="ViewSlot" asp-action="Edit" asp-route-id="@item.Guid" class="btn btn-secondary">Edit</a>
+                </div>
+            </div>
+        </div>
+
+
+           if(i % 3 == 2)
+           {
+               @:</div>
+           }
+       }
+</div>
+
