@@ -49,6 +49,7 @@ General to-do items just to keep track of my work before implementing the full f
  - [X] Manually set relations through fetch (rather than through DTO mapping) so context can keep track
  - [X] Swap "OrderNumber" to an int instead of string
  - [X] Swap over from "auto-generated" identity guid to "manually" setting guid (using Guid.NewGuid()) and see whether that makes the code behaviour "more predictable"
+ - [ ] Make "Genre" a drop-down wherever it's used
 
 ## Requirements
 
@@ -81,11 +82,11 @@ Make a web application for ticket sales using Onion Architecture. The applicatio
  ### Administrator-specific services
 
  #### Tickets
- - [ ] Administrators can export all tickets as an Excel document.
- - [ ] When exporting, administrator can filter by Genre.
+ - [X] Administrators can export all tickets as an Excel document.
+ - [X] When exporting, administrator can filter by Genre.
  
  #### Users
- - [ ] Administrator can import users using an Excel document.
+ - [X] Administrator can import users using an Excel document.
    - Format of excel file:
  ```
          E-mail      | Password  |    Role

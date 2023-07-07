@@ -2,7 +2,10 @@
 using AutoMapper;
 using Integrated_Systems_Homework.ViewControllers.Models;
 using ISH.Service;
+using ISH.Service.Dtos.Authentication;
 using ISH.Service.Dtos.Tickets;
+using ISH.Service.Extensions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Integrated_Systems_Homework.ViewControllers
@@ -13,13 +16,13 @@ namespace Integrated_Systems_Homework.ViewControllers
     {
         private readonly ITicketService _ticketService;
         private readonly ICartService _cartService;
-        private readonly IMapper _mapper;
+        private readonly IMovieGenreService _movieGenreService;
 
-        public TicketController(ITicketService ticketService, ICartService cartService, IMapper mapper)
+        public TicketController(ITicketService ticketService, ICartService cartService, IMovieGenreService movieGenreService)
         {
             _ticketService = ticketService;
             _cartService = cartService;
-            _mapper = mapper;
+            _movieGenreService = movieGenreService;
         }
 
         // Add to cart
@@ -110,6 +113,21 @@ namespace Integrated_Systems_Homework.ViewControllers
                 FromTimeSlot = model.fromDate,
                 ToTimeSlot = model.toDate
             });
+
+            return View(model);
+        }
+
+        // Export
+        [HttpGet("export")]
+        public IActionResult Export(ExportTicketsModel model)
+        {
+            if (!User.IsInRole(UserRoles.Administrator.GetDisplay()))
+            {
+                return NotFound();
+            }
+
+            model.Tickets = _ticketService.FilterTicketsByGenre(model.SelectedGenre);
+            model.Genres = _movieGenreService.GetAll();
 
             return View(model);
         }

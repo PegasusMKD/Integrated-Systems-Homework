@@ -1,6 +1,7 @@
 ﻿using ExcelDataReader;
 using ISH.Service.Dtos.Authentication;
 using ISH.Service;
+using ISH.Service.Extensions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,7 +9,6 @@ namespace Integrated_Systems_Homework.Controllers
 {
     [Route("api/users")]
     [ApiController]
-    [Authorize]
     public class UsersController : ControllerBase
     {
         private readonly IUserService _userService;
@@ -18,6 +18,7 @@ namespace Integrated_Systems_Homework.Controllers
             this._userService = userService;
         }
 
+        [Authorize]
         [HttpGet("get-user-details")]
         public IActionResult GetUserDetails()
         {
@@ -39,10 +40,12 @@ namespace Integrated_Systems_Homework.Controllers
             }
         }
 
-        [Authorize(Roles = "Administrator")]
-        [HttpPost("import")]
-        public async Task<IActionResult> ImportUsers(IFormFile file)
+        [HttpPost("import/{from?}")]
+        public async Task<IActionResult> ImportUsers([FromRoute] string from, IFormFile file)
         {
+            if (!User.IsInRole(UserRoles.Administrator.GetDisplay()))
+                return NotFound();
+
             List<UserDto> users = new List<UserDto>();
             // For .net core, the next line requires the NuGet package, 
             // System.Text.Encoding.CodePages
@@ -55,6 +58,9 @@ namespace Integrated_Systems_Homework.Controllers
                     await _userService.ImportUsers(reader);
                 }
             }
+
+            if (from == "view")
+                return RedirectToAction("Index", "Home");
 
             return Ok();
         }
