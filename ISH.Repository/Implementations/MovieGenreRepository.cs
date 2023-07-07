@@ -25,5 +25,8 @@ namespace ISH.Repository.Implementations
 
         public void SaveChanges() =>
             _context.SaveChanges();
+
+        public MovieGenre GetByName(string viewSlotGenreName) =>
+            _context.movieGenre.SingleOrDefault(genre => genre.Name == viewSlotGenreName);
     }
 }

@@ -1,0 +1,57 @@
+﻿@using ISH.Service.Dtos.Authentication
+@model Integrated_Systems_Homework.ViewControllers.Models.UpdateUserModel
+
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Edit</h1>
+
+<h4>User</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="UserName" class="control-label">Username:</label>
+                <input asp-for="UserName" class="form-control" />
+                <span asp-validation-for="UserName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CurrentPassword" class="control-label">Current Password:</label>
+                <input asp-for="CurrentPassword" type="password" class="form-control" />
+                <span asp-validation-for="CurrentPassword" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NewPassword" class="control-label">New Password:</label>
+                <input asp-for="NewPassword" type="password" class="form-control" />
+                <span asp-validation-for="NewPassword" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Role" class="control-label">Role:</label>
+                @Html.DropDownListFor(model => model.Role, new SelectList(Enum.GetValues(typeof(UserRoles))), "Select Role");
+            </div>
+            <div class="form-group">
+                <label asp-for="EmailConfirmed" class="control-label">Email Confirmed:</label>
+                <input asp-for="EmailConfirmed"/>
+                <span asp-validation-for="EmailConfirmed" class="text-danger"></span>
+            </div>
+            <input asp-for="Email" type="hidden"/>
+            <div class="form-group">
+                <input type="submit" value="Update" class="btn btn-secondary" />
+                <a asp-controller="User" asp-action="Index" class="btn btn-danger">Back</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

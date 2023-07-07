@@ -1,4 +1,4 @@
-﻿@model ISH.Service.Dtos.View_Slot.ViewSlotDto
+﻿@model Integrated_Systems_Homework.ViewControllers.Models.UpdateViewSlotModel
 
 @{
     ViewData["Title"] = "Edit";
@@ -7,7 +7,7 @@
 
 <h1>Edit</h1>
 
-<h4>Product</h4>
+<h4>View Slot</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -15,18 +15,17 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Guid" />
             <div class="form-group">
-                <label asp-for="MovieName" class="control-label"></label>
+                <label asp-for="MovieName" class="control-label">Movie Name:</label>
                 <input asp-for="MovieName" class="form-control" />
                 <span asp-validation-for="MovieName" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Genre.Name" class="control-label"></label>
-                <input asp-for="Genre.Name" class="form-control" />
-                <input asp-for="Genre.Id" class="form-control" type="hidden"/>
-                <span asp-validation-for="Genre.Name" class="text-danger"></span>
+                @Html.DropDownListFor(m => m.GenreName,
+                new SelectList(@Model.Genres),
+                "Select Genre")
             </div>
             <div class="form-group">
-                <label asp-for="TimeSlot" class="control-label"></label>
+                <label asp-for="TimeSlot" class="control-label">Time Slot:</label>
                 <input asp-for="TimeSlot" class="form-control" />
                 <span asp-validation-for="TimeSlot" class="text-danger"></span>
             </div>

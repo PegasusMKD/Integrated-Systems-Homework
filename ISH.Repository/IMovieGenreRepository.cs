@@ -9,5 +9,6 @@ namespace ISH.Repository
         MovieGenre Create(MovieGenre movie);
         MovieGenre Update(MovieGenre movie);
         void SaveChanges();
+        MovieGenre GetByName(string viewSlotGenreName);
     }
 }

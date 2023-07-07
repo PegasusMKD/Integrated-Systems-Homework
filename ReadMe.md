@@ -32,8 +32,8 @@ General to-do items just to keep track of my work before implementing the full f
       - Excel import/export - **Implemented**
       - Invoice PDF generation - https://ironpdf.com/tutorials/dotnet-core-pdf-generating/ - **Implemented**
       - Sending an e-mail - https://mailtrap.io/blog/asp-net-core-send-email/ - **Implemented**
- - [ ] Implement views - *In Progress*
- - [ ] Test/Experiment with controllers and views to see how well it works - *In Progress*
+ - [X] Implement views - *In Progress*
+ - [X] Test/Experiment with controllers and views to see how well it works - *In Progress*
  - [X] Add error checking and handling **- set to done since we don't care about this**
       - For example trying to create an object when passing in a GUID, or updating one without a GUID
 
@@ -49,7 +49,8 @@ General to-do items just to keep track of my work before implementing the full f
  - [X] Manually set relations through fetch (rather than through DTO mapping) so context can keep track
  - [X] Swap "OrderNumber" to an int instead of string
  - [X] Swap over from "auto-generated" identity guid to "manually" setting guid (using Guid.NewGuid()) and see whether that makes the code behaviour "more predictable"
- - [ ] Make "Genre" a drop-down wherever it's used
+ - [X] Make "Genre" a drop-down wherever it's used
+ - [X] Update labels
 
 ## Requirements
 
@@ -61,7 +62,7 @@ Make a web application for ticket sales using Onion Architecture. The applicatio
  - [X] Make the following roles available:
    - Administrator
    - User
- - [ ] Page for managing users and updating roles
+ - [X] Page for managing users and updating roles
  
  ### Services
 

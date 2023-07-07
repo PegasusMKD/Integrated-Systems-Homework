@@ -31,7 +31,7 @@ namespace Integrated_Systems_Homework.Controllers
         {
             try
             {
-                _userService.UpdateUser(userDto);
+                _userService.UpdateUser(userDto, "", "");
                 return Ok();
             }
             catch (Exception ex)
@@ -60,7 +60,7 @@ namespace Integrated_Systems_Homework.Controllers
             }
 
             if (from == "view")
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "User");
 
             return Ok();
         }

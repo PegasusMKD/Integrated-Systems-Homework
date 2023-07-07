@@ -37,5 +37,8 @@ namespace ISH.Service.Implementations
             _baseMovieGenreRepository.SaveChanges();
             return _mapper.Map<MovieGenreDto>(movieGenre);
         }
+
+        public MovieGenreDto GetByName(string viewSlotGenreName) =>
+            _mapper.Map<MovieGenreDto>(_baseMovieGenreRepository.GetByName(viewSlotGenreName));
     }
 }

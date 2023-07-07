@@ -25,14 +25,19 @@ namespace ISH.Service.Implementations
             _userManager = userManager;
         }
 
-        public void DeleteUser(string username) =>
-            _userRepository.DeleteUserByUsername(username);
+        public void DeleteUser(string id) =>
+            _userRepository.DeleteUserById(id);
 
         public UserDto GetUser(string username) =>
             _mapper.Map<UserDto>(_userRepository.GetUserByUsername(username));
 
-        public UserDto GetUserById(string id) =>
-            _mapper.Map<UserDto>(_userRepository.GetUserById(id));
+        public UserDto GetUserById(string id)
+        {
+            var user = _userRepository.GetUserById(id);
+            var dto = _mapper.Map<UserDto>(user);
+            dto.Roles = _userManager.GetRolesAsync(user).Result.ToArray();
+            return dto;
+        }
 
         public UserDto? GetUserByClaims(ClaimsPrincipal claimsPrincipal)
         {
@@ -88,10 +93,33 @@ namespace ISH.Service.Implementations
             dto.Roles = (await _userManager.GetRolesAsync(user)).ToArray();
         }
 
-        public List<UserDto> GetUsers() =>
-            _userRepository.GetAllUsers().ConvertAll(_mapper.Map<UserDto>);
+        public List<UserDto> GetUsers()
+        {
+            var dtos = new List<UserDto>();
+            var users = _userRepository.GetAllUsers();
+            foreach (var user in users)
+            {
+                var dto = _mapper.Map<UserDto>(user);
+                dto.Roles = _userManager.GetRolesAsync(user).Result.ToArray();
+                dtos.Add(dto);
+            }
 
-        public void UpdateUser(UserDto userDto) =>
-            _userRepository.UpdateUser(_mapper.Map<User>(userDto));
+            return dtos;
+        }
+
+        public void UpdateUser(UserDto userDto, string currentPassword, string newPassword)
+        {
+            var user = _mapper.Map<User>(userDto);
+            user = _userRepository.UpdateUser(user);
+
+            if (newPassword != null && currentPassword != null)
+                _userManager.ChangePasswordAsync(user, currentPassword, newPassword).Wait();
+
+            if (userDto.Roles != null && userDto.Roles.Length > 0)
+            {
+                _userManager.RemoveFromRolesAsync(user, new List<string> { "User", "Administrator" }).Wait();
+                _userManager.AddToRolesAsync(user, userDto.Roles).Wait();
+            }
+        }
     }
 }

@@ -15,6 +15,7 @@ namespace Integrated_Systems_Homework.ViewControllers
             _orderService = orderService;
         }
 
+        [HttpGet]
         public IActionResult Index()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);

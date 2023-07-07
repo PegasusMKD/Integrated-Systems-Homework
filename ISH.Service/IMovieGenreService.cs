@@ -7,5 +7,6 @@ namespace ISH.Service
         List<MovieGenreDto> GetAll();
         MovieGenreDto Create(string genreName);
         MovieGenreDto Update(MovieGenreDto genre);
+        MovieGenreDto GetByName(string viewSlotGenreName);
     }
 }

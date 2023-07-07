@@ -5,9 +5,10 @@ namespace ISH.Repository
     public interface IUserRepository
     {
         User GetUserByUsername(string username);
-        void UpdateUser(User user);
+        User UpdateUser(User user);
         void DeleteUserByUsername(string username);
         List<User> GetAllUsers();
         User GetUserById(string id);
+        void DeleteUserById(string id);
     }
 }

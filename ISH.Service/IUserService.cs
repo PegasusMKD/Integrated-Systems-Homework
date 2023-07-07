@@ -8,7 +8,7 @@ namespace ISH.Service
     {
         UserDto GetUser(string username);
         List<UserDto> GetUsers();
-        void UpdateUser(UserDto userDto);
+        void UpdateUser(UserDto userDto, string currentPassword, string newPassword);
         void DeleteUser(string username);
         UserDto GetUserById(string id);
         UserDto? GetUserByClaims(ClaimsPrincipal  claimsPrincipal);

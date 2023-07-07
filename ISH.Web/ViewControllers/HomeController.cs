@@ -15,6 +15,7 @@ namespace Integrated_Systems_Homework.ViewControllers
             _logger = logger;
         }
 
+        [HttpGet]
         public IActionResult Index()
         {
             return View();

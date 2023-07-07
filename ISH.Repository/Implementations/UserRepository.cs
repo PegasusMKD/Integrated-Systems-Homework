@@ -61,19 +61,30 @@ namespace ISH.Repository.Implementations
             return user.Result!;
         }
 
-        public void UpdateUser(User user)
+        public User? UpdateUser(User user)
         {
             var eUser = userManager.FindByIdAsync(user.Id).Result;
             if (eUser != null)
             {
                 eUser.UserName = user.UserName ?? user.UserName;
-                userManager.UpdateAsync(user).Wait();
+                eUser.EmailConfirmed = user.EmailConfirmed;
+                userManager.UpdateAsync(eUser).Wait();
+                return userManager.FindByIdAsync(user.Id).Result;
             }
+
+            return null;
         }
 
         public void DeleteUserByUsername(string username)
         {
             var user = GetUserByUsername(username);
+            if (user != null)
+                userManager.DeleteAsync(user).Wait();
+        }
+
+        public void DeleteUserById(string id)
+        {
+            var user = GetUserById(id);
             if (user != null)
                 userManager.DeleteAsync(user).Wait();
         }

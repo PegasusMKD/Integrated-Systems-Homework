@@ -1,4 +1,6 @@
 ﻿using System.Security.Claims;
+using Integrated_Systems_Homework.ViewControllers.Models;
+using ISH.Data.Tickets;
 using ISH.Service;
 using ISH.Service.Dtos.Tickets;
 using ISH.Service.Dtos.View_Slot;
@@ -16,20 +18,21 @@ namespace Integrated_Systems_Homework.ViewControllers
     {
         private readonly ITicketService _ticketService;
         private readonly IViewSlotService _viewSlotService;
+        private readonly IMovieGenreService _movieGenreService;
         private readonly ILogger<ViewSlotController> _logger;
 
-        public ViewSlotController(ILogger<ViewSlotController> logger, ITicketService productService, IViewSlotService viewSlotService)
+        public ViewSlotController(ILogger<ViewSlotController> logger, ITicketService ticketService, IViewSlotService viewSlotService, IMovieGenreService movieGenreService)
         {
             _logger = logger;
-            _ticketService = productService;
+            _ticketService = ticketService;
             _viewSlotService = viewSlotService;
+            _movieGenreService = movieGenreService;
         }
 
         // GET: ViewSlot
         [HttpGet]
         public IActionResult Index()
         {
-            _logger.LogInformation("User Request -> Get All products!");
             return View(this._viewSlotService.GetAllViewSlots());
         }
 
@@ -37,27 +40,29 @@ namespace Integrated_Systems_Homework.ViewControllers
         [HttpGet("details/{id}")]
         public IActionResult Details([FromRoute] Guid id)
         {
-            _logger.LogInformation("User Request -> Get Details For Product");
             if (id == null)
             {
                 return NotFound();
             }
 
-            var product = this._viewSlotService.GetById(id);
-            if (product == null)
+            var viewSlot = this._viewSlotService.GetById(id);
+            if (viewSlot == null)
             {
                 return NotFound();
             }
 
-            return View(product);
+            return View(viewSlot);
         }
 
         // GET: ViewSlot/Create
         [HttpGet("create")]
         public IActionResult Create()
         {
-            _logger.LogInformation("User Request -> Get create form for Product!");
-            return View();
+            return View(new CreateViewSlotModel
+            {
+                TimeSlot = DateTime.Now,
+                Genres = _movieGenreService.GetAll().Select(item => item.Name).ToList()
+            });
         }
 
         // POST: ViewSlot/Create
@@ -65,11 +70,12 @@ namespace Integrated_Systems_Homework.ViewControllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost("create")]
         [ValidateAntiForgeryToken]
-        public IActionResult Create([Bind("MovieName,GenreId,TimeSlot")] CreateViewSlotDto viewSlot)
+        public IActionResult Create(CreateViewSlotModel viewSlot)
         {
-            _logger.LogInformation("User Request -> Inser Product in DataBase!");
+            viewSlot.Genres = _movieGenreService.GetAll().Select(item => item.Name).ToList();
             if (ModelState.IsValid)
             {
+                viewSlot.GenreId = _movieGenreService.GetByName(viewSlot.GenreName).Id;
                 this._viewSlotService.CreateViewSlot(viewSlot);
                 return RedirectToAction(nameof(Index));
             }
@@ -80,14 +86,20 @@ namespace Integrated_Systems_Homework.ViewControllers
         [HttpGet("edit/{id}")]
         public IActionResult Edit([FromRoute] Guid id)
         {
-            _logger.LogInformation("User Request -> Get edit form for Product!");
-            // TODO: Check how to actually implement this
-            var product = this._viewSlotService.GetById(id);
-            if (product == null)
+            var viewSlot = this._viewSlotService.GetById(id);
+            if (viewSlot == null)
             {
                 return NotFound();
             }
-            return View(product);
+            return View(new UpdateViewSlotModel
+            {
+                GenreId = viewSlot.Genre.Id,
+                GenreName = viewSlot.Genre.Name,
+                Genres = _movieGenreService.GetAll().Select(item => item.Name).ToList(),
+                Guid = viewSlot.Guid,
+                MovieName = viewSlot.MovieName,
+                TimeSlot = viewSlot.TimeSlot
+            });
         }
 
         // POST: ViewSlot/Edit/5
@@ -95,55 +107,47 @@ namespace Integrated_Systems_Homework.ViewControllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost("edit/{id}")]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit([FromRoute] Guid id, [Bind("Guid,MovieName,TimeSlot,Genre.Id")] UpdateViewSlotDto product)
+        public IActionResult Edit([FromRoute] Guid id, UpdateViewSlotModel viewSlot)
         {
-            _logger.LogInformation("User Request -> Update Product in DataBase!");
-
-            if (id != product.Guid)
+            if (id != viewSlot.Guid)
             {
                 return NotFound();
             }
+
+            viewSlot.Genres = _movieGenreService.GetAll().Select(item => item.Name).ToList();
 
             if (ModelState.IsValid)
             {
                 try
                 {
-                    this._viewSlotService.UpdateViewSlot(product);
+                    viewSlot.GenreId = _movieGenreService.GetByName(viewSlot.GenreName).Id;
+                    this._viewSlotService.UpdateViewSlot(viewSlot);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ProductExists(product.Guid))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(product);
+            return View(viewSlot);
         }
 
         // GET: ViewSlot/Delete/5
         [HttpGet("delete/{id}")]
         public IActionResult Delete([FromRoute] Guid id)
         {
-            _logger.LogInformation("User Request -> Get delete form for Product!");
 
             if (id == null)
             {
                 return NotFound();
             }
 
-            var product = this._viewSlotService.GetById(id);
-            if (product == null)
+            var viewSlot = this._viewSlotService.GetById(id);
+            if (viewSlot == null)
             {
                 return NotFound();
             }
 
-            return View(product);
+            return View(viewSlot);
         }
 
         // POST: ViewSlot/Delete/5
@@ -151,41 +155,11 @@ namespace Integrated_Systems_Homework.ViewControllers
         [ValidateAntiForgeryToken]
         public IActionResult DeleteConfirmed([FromRoute] Guid id)
         {
-            _logger.LogInformation("User Request -> Delete Product in DataBase!");
-
             this._viewSlotService.DeleteViewSlot(id);
             return RedirectToAction(nameof(Index));
         }
 
-        // TODO: Implement "add ticket to card"
-        //public IActionResult AddProductToCard(Guid id)
-        //{
-        //    var result = this._ticketService.GetShoppingCartInfo(id);
-
-        //    return View(result);
-        //}
-
-        // TODO: Implement "add ticket to card"
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public IActionResult AddProductToCard(AddToShoppingCardDto model)
-        //{
-
-        //    _logger.LogInformation("User Request -> Add Product in ShoppingCart and save changes in database!");
-
-
-        //    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-
-        //    var result = this._ticketService.AddToShoppingCart(model, userId);
-
-        //    if(result)
-        //    {
-        //        return RedirectToAction("Index", "ViewSlot");
-        //    }
-        //    return View(model);
-        //}
-
-        private bool ProductExists(Guid id) => 
+        private bool TicketExists(Guid id) => 
             this._ticketService.GetById(id) != null;
     }
 }

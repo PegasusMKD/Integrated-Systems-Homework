@@ -15,9 +15,10 @@
         <div class="row">
             <div class="form-group">
                 <div class="col">
+
                     @Html.DropDownListFor(m => m.SelectedGenre,
-                    new SelectList(@Model.Genres),
-                    "Select Genre")
+                        new SelectList(@Model.Genres),
+                        "Select Genre")
                 </div>
             </div>
         </div>

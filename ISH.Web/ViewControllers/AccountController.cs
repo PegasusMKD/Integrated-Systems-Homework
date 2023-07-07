@@ -93,6 +93,7 @@ namespace Integrated_Systems_Homework.ViewControllers
         }
 
 
+        [HttpPost("logout")]
         public async Task<IActionResult> Logout()
         {
             await signInManager.SignOutAsync();
