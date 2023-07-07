@@ -1,0 +1,79 @@
+﻿@using Microsoft.Extensions.Options
+@inject IOptions<ISH.Service.Settings.StripeSettings> Stripe
+@model ISH.Service.Dtos.Cart.CartDto
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+
+
+    <div class="row m-4">
+        @if (Model.CartPrice != 0)
+        {
+            <form asp-controller="ShoppingCart" asp-action="PayOrder" method="post">
+                <article>
+                    <script src="https://checkout.stripe.com/checkout.js"
+                            class="stripe-button"
+                            data-key="@Stripe.Value.PublishableKey"
+                            data-locale="auto"
+                            data-description="EShop Application Payment"
+                            data-amount="@(Model.CartPrice * 100)"
+                            data-label="Pay $@Model.CartPrice">
+                    </script>
+                </article>
+            </form>
+        }
+    </div>
+
+    <div class="row m-4">
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Movie Name</th>
+                    <th scope="col">Time Slot</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Seat Number</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.Tickets.Count == 0)
+                {
+                    <tr>
+                        <td colspan="5">No active tickets</td>
+                    </tr>
+                }
+                else
+                {
+                    @for (int i = 0; i < Model.Tickets.Count; i++)
+                    {
+                        var item = Model.Tickets[i];
+
+                        <tr>
+                            <th scope="row">@(i + 1)</th>
+                            <td>@item.ViewSlot.MovieName</td>
+                            <td>@item.ViewSlot.TimeSlot</td>
+                            <td>$@item.Price</td>
+                            <td>@item.SeatNumber</td>
+                            <td><a asp-controller="ShoppingCart" asp-action="DeleteFromShoppingCart" asp-route-id="@item.Guid" class="btn btn-danger">Remove</a></td>
+                        </tr>
+                    }
+                }
+            </tbody>
+            <tfoot class="thead-dark">
+                <tr>
+                    <th scope="col">CartPrice:</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                    <th scope="col">$@Model.CartPrice</th>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+
+</div>

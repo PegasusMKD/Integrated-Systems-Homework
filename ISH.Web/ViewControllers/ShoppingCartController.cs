@@ -14,13 +14,13 @@ namespace Integrated_Systems_Homework.ViewControllers
 {
     [Controller]
     [Route("views/shopping-cart")]
-    public class ShoppingCardController : Controller
+    public class ShoppingCartController : Controller
     {
 
         private readonly ICartService _shoppingCartService;
         private readonly IOrderService _orderService;
 
-        public ShoppingCardController(ICartService shoppingCartService, IOrderService orderService)
+        public ShoppingCartController(ICartService shoppingCartService, IOrderService orderService)
         {
             _shoppingCartService = shoppingCartService;
             _orderService = orderService;
@@ -42,7 +42,7 @@ namespace Integrated_Systems_Homework.ViewControllers
 
             var result = this._shoppingCartService.RemoveTicket(userId!, id);
             
-            return RedirectToAction("Index", "ShoppingCard");
+            return RedirectToAction("Index", "ShoppingCart");
         }
 
         [HttpPost("pay")]
@@ -50,7 +50,7 @@ namespace Integrated_Systems_Homework.ViewControllers
         {
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             this._orderService.CreateOrder(userId, stripeEmail, stripeToken, token);
-            return RedirectToAction("Index", "ShoppingCard");
+            return RedirectToAction("Index", "ShoppingCart");
         }
     }
 }
