@@ -17,6 +17,7 @@ using Stripe;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Integrated_Systems_Homework.Settings;
+using ISH.Service.Settings;
 using Microsoft.AspNetCore.Authorization;
 
 namespace Integrated_Systems_Homework
@@ -47,6 +48,7 @@ namespace Integrated_Systems_Homework
         public static IServiceCollection AddStripeInfrastructure(this IServiceCollection services, IConfiguration configuration)
         {
             StripeConfiguration.ApiKey = configuration.GetValue<string>("StripeSettings:SecretKey");
+            services.Configure<StripeSettings>(configuration.GetSection("StripeSettings"));
 
             return services
                 .AddScoped<CustomerService>()

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using ISH.Service;
+using ISH.Service.Dtos.Cart;
 using ISH.Service.Dtos.Stripe;
 
 namespace Integrated_Systems_Homework.ViewControllers
@@ -25,14 +26,16 @@ namespace Integrated_Systems_Homework.ViewControllers
             _orderService = orderService;
         }
 
+        [HttpGet]
         public IActionResult Index()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            return View(this._shoppingCartService.GetCartByUser(userId!));
+            return View(this._shoppingCartService.GetCartByUser(userId!) ?? new CartDto());
         }
 
-        public IActionResult DeleteFromShoppingCart(Guid id)
+        [HttpGet("remove/{id}")]
+        public IActionResult DeleteFromShoppingCart([FromRoute] Guid id)
         {
 
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -42,13 +45,11 @@ namespace Integrated_Systems_Homework.ViewControllers
             return RedirectToAction("Index", "ShoppingCard");
         }
 
+        [HttpPost("pay")]
         public IActionResult PayOrder(string stripeEmail, string stripeToken, CancellationToken token)
         {
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            
-            // TODO: Populate fields, maybe re-implement to use email and token
-            //this._orderService.CreateOrder(userId, new AddStripeCard() { }, token);
-
+            this._orderService.CreateOrder(userId, stripeEmail, stripeToken, token);
             return RedirectToAction("Index", "ShoppingCard");
         }
     }

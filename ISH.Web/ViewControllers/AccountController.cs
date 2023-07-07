@@ -79,7 +79,8 @@ namespace Integrated_Systems_Homework.ViewControllers
 
                 if (result.Succeeded)
                 {
-                    await userManager.AddClaimAsync(user, new Claim("UserRole", "Admin"));
+                    var userRoles = await userManager.GetRolesAsync(user);
+                    await userManager.AddClaimsAsync(user, userRoles.Select(userRole => new Claim(ClaimTypes.Role, userRole)));
                     return RedirectToAction("Index", "Home");
                 }
                 else

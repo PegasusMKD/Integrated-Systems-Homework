@@ -1,0 +1,33 @@
+﻿@model List<ISH.Service.Dtos.Orders.OrderDto>
+@{
+    ViewData["Title"] = "Orders";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Orders</h1>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">Order Number</th>
+        <th scope="col">Price</th>
+        <th scope="col"></th>
+    </tr>
+    </thead>
+    <tbody>
+    @for (var index = 0; index < Model.Count; index++)
+    {
+        var order = Model[index];
+        <tr>
+            <th scope="row">@(index + 1)</th>
+            <td>Order#@order.OrderNumber</td>
+            <td>@order.TotalPrice $</td>
+            <td>
+                <a asp-controller="Order" asp-action="GenerateInvoice" asp-route-id="@order.Guid" class="btn btn-success">Generate PDF Invoice</a>
+            </td>
+        </tr>
+    }
+
+    </tbody>
+</table>

@@ -7,6 +7,7 @@ namespace ISH.Service
     public interface IOrderService
     {
         OrderDto? CreateOrder(string userId, AddStripeCard paymentDetails, CancellationToken ct);
+        OrderDto? CreateOrder(string userId, string stripeEmail, string stripeToken, CancellationToken ct);
         void NotifyUser(OrderDto order);
         List<OrderDto> GetOrdersByUser(string userId);
         OrderDto GetOrderById(Guid orderId);

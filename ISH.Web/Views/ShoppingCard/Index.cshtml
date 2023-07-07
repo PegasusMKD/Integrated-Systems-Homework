@@ -1,12 +1,12 @@
 ﻿@using Microsoft.Extensions.Options
-@*@inject IOptions<EShop.Domain.StripeSettings> Stripe*@
+@inject IOptions<ISH.Service.Settings.StripeSettings> Stripe
 @model ISH.Service.Dtos.Cart.CartDto
 
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@*
+
 <div class="container">
 
 
@@ -33,9 +33,10 @@
             <thead class="thead-dark">
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Product Name</th>
-                    <th scope="col">Quantity</th>
-                    <th scope="col">ProductPrice</th>
+                    <th scope="col">Movie Name</th>
+                    <th scope="col">Time Slot</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Seat Number</th>
                     <th></th>
                 </tr>
             </thead>
@@ -43,7 +44,7 @@
                 @if (Model.Tickets.Count == 0)
                 {
                     <tr>
-                        <td colspan="5">No active Tickets</td>
+                        <td colspan="5">No active tickets</td>
                     </tr>
                 }
                 else
@@ -54,10 +55,11 @@
 
                         <tr>
                             <th scope="row">@(i + 1)</th>
-                            <td>@item.CurrentTicket.ProductName</td>
-                            <td>@item.Quantity</td>
-                            <td>$@item.CurrentTicket.ProductPrice</td>
-                            <td><a asp-controller="ShoppingCard" asp-action="DeleteFromShoppingCart" asp-route-id="@item.Guid" class="btn btn-danger">Delete From ShoppingCart</a></td>
+                            <td>@item.ViewSlot.MovieName</td>
+                            <td>@item.ViewSlot.TimeSlot</td>
+                            <td>$@item.Price</td>
+                            <td>@item.SeatNumber</td>
+                            <td><a asp-controller="ShoppingCard" asp-action="DeleteFromShoppingCart" asp-route-id="@item.Guid" class="btn btn-danger">Remove</a></td>
                         </tr>
                     }
                 }
@@ -74,4 +76,4 @@
         </table>
     </div>
 
-</div>*@
+</div>

@@ -39,7 +39,6 @@
             <th scope="col">Price</th>
             <th scope="col">View Slot</th>
             <th scope="col">Availability</th>
-            <th scope="col"></th>
         </tr>
     </thead>
     <tbody>
@@ -52,10 +51,6 @@
                 <td>@ticket.Price $</td>
                 <td>@ticket.ViewSlot.MovieName - @ticket.ViewSlot.TimeSlot</td>
                 <td>@ticket.TicketStatus.GetDisplay()</td>
-                <td>
-                    <a asp-controller="Ticket" asp-action="Edit" asp-route-id="@ticket.Guid" class="btn btn-info">Edit</a>
-                    <a asp-controller="Ticket" asp-action="Delete" asp-route-id="@ticket.Guid" class="btn btn-danger">Delete</a>
-                </td>
             </tr>
         }
 

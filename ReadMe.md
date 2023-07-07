@@ -33,8 +33,8 @@ General to-do items just to keep track of my work before implementing the full f
       - Invoice PDF generation - https://ironpdf.com/tutorials/dotnet-core-pdf-generating/ - **Implemented**
       - Sending an e-mail - https://mailtrap.io/blog/asp-net-core-send-email/ - **Implemented**
  - [ ] Implement views - *In Progress*
- - [ ] Test/Experiment with controllers and views to see how well it works
- - [ ] Add error checking and handling
+ - [ ] Test/Experiment with controllers and views to see how well it works - *In Progress*
+ - [X] Add error checking and handling **- set to done since we don't care about this**
       - For example trying to create an object when passing in a GUID, or updating one without a GUID
 
 ## Bugs
@@ -72,11 +72,11 @@ Make a web application for ticket sales using Onion Architecture. The applicatio
  - [X] Adding tickets to a Cart (both roles should be allowed to do this)
  
  #### Orders
- - [ ] Creating an Order based on the user Cart.
- - [ ] User has to pay for the Order.
- - [ ] After creating an Order, send an e-mail to the user to confirm that the Order was created.
- - [ ] Let the user view all of their previous Orders.
- - [ ] For each Order a user can create an invoice as a PDF document.
+ - [X] Creating an Order based on the user Cart.
+ - [X] User has to pay for the Order.
+ - [X] After creating an Order, send an e-mail to the user to confirm that the Order was created.
+ - [X] Let the user view all of their previous Orders.
+ - [X] For each Order a user can create an invoice as a PDF document.
 
  ### Administrator-specific services
 
