@@ -47,6 +47,6 @@ namespace Integrated_Systems_Homework.Controllers
         [HttpPost]
         [Route("register")]
         public async Task<IActionResult> Register([FromBody] RegisterDto registerDto) =>
-            Ok(_authService.Register(registerDto));
+            Ok(await _authService.Register(registerDto));
     }
 }
