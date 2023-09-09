@@ -30,7 +30,10 @@ namespace Integrated_Systems_Homework.Controllers
         [HttpPost("filter")]
         public IActionResult Filter([FromBody] FilterTicketsDto filter) => Ok(_ticketService.FilterTickets(filter));
 
-        [Authorize(Roles = "Administrator")]
+        [HttpGet("by-genre")]
+        public IActionResult Filter([FromQuery] string? genre) => Ok(_ticketService.FilterTicketsByGenre(genre));
+
+        // [Authorize(Roles = "Administrator")]
         [HttpGet("excel")]
         public IActionResult GenerateExcel([FromQuery] string? genre)
         {

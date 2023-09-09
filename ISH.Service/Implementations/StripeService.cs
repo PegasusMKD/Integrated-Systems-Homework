@@ -59,7 +59,7 @@ namespace ISH.Service.Implementations
 
             Token stripeToken = _tokenService.Create(tokenOptions, null);
 
-            var getStripeCustomerDto = AddStripeCustomerDtoAsync(user.Email, user.UserName, stripeToken.Id, ct).Result;
+            var getStripeCustomerDto = AddStripeCustomerDtoAsync(user.Email, card.Name, stripeToken.Id, ct).Result;
 
             ChargeCreateOptions paymentOptions = new()
             {

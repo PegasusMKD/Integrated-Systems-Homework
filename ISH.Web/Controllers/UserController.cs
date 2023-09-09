@@ -4,6 +4,8 @@ using ISH.Service;
 using ISH.Service.Extensions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.OpenApi.Extensions;
+using Integrated_Systems_Homework.ViewControllers.Models;
 
 namespace Integrated_Systems_Homework.Controllers
 {
@@ -17,6 +19,18 @@ namespace Integrated_Systems_Homework.Controllers
         {
             this._userService = userService;
         }
+
+
+        [HttpGet]
+        [Authorize]
+        public IActionResult GetUsers()
+        {
+            if (!User.IsInRole(UserRoles.Administrator.GetDisplay()))
+                return NotFound();
+
+            return Ok(_userService.GetUsers());
+        }
+
 
         [Authorize]
         [HttpGet("get-user-details")]
@@ -40,6 +54,7 @@ namespace Integrated_Systems_Homework.Controllers
             }
         }
 
+
         [HttpPost("import/{from?}")]
         public async Task<IActionResult> ImportUsers([FromRoute] string from, IFormFile file)
         {
@@ -62,6 +77,38 @@ namespace Integrated_Systems_Homework.Controllers
             if (from == "view")
                 return RedirectToAction("Index", "User");
 
+            return Ok();
+        }
+
+        [Authorize]
+        [HttpGet("{id}")]
+        public IActionResult GetUserById([FromRoute] string id) => Ok(_userService.GetUserById(id));
+
+        [HttpGet("roles")]
+        public IActionResult GetRoles() => Ok(new [] { UserRoles.User.GetDisplayName(), UserRoles.Administrator.GetDisplayName() });
+
+
+        [Authorize]
+        [HttpPut("{id}")]
+        public IActionResult Edit([FromRoute] string Id, [FromBody] UpdateUserModel updateUserModel)
+        {
+            var user = new UserDto
+            {
+                Id = Id,
+                EmailConfirmed = updateUserModel.EmailConfirmed,
+                UserName = updateUserModel.UserName,
+                Email = updateUserModel.Email,
+                Roles = new string[] { updateUserModel.Role }
+            };
+            _userService.UpdateUser(user, updateUserModel.CurrentPassword, updateUserModel.NewPassword);
+            return Ok();
+        }
+
+        [Authorize]
+        [HttpDelete("{id}")]
+        public IActionResult DeleteById([FromRoute] string id)
+        {
+            _userService.DeleteUser(id);
             return Ok();
         }
     }

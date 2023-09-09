@@ -4,10 +4,21 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: "All",
+        policy =>
+        {
+            policy.AllowAnyHeader();
+            policy.AllowAnyOrigin();
+            policy.AllowAnyMethod();
+        });
+});
+
 // Add services to the container.
 
 builder.Services.AddDbContextAndIdentity(builder.Configuration);
-//builder.Services.AddJwt(builder.Configuration);
+builder.Services.AddJwt(builder.Configuration);
 builder.Services.AddAuthorization();
 
 builder.Services.AddControllers().AddJsonOptions(x =>
@@ -43,13 +54,13 @@ app.UseSwagger();
 app.UseSwaggerUI();
 app.UseStaticFiles();
 
-app.UseCors("FrontendOrigins");
+app.UseCors("All");
 
 app.UseHttpsRedirection();
 
 
-app.UseAuthorization();
 app.UseAuthentication();
+app.UseAuthorization();
 app.MapControllers();
 
 app.Run();

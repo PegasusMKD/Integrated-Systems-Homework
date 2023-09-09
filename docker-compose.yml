@@ -1,0 +1,33 @@
+
+version: "3.7"
+
+services:
+  dotnet-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: integrated-systems/dotnet-api:latest
+    container_name: dotnet-api
+    depends_on:
+     - sqlserver
+    environment:
+     - ASPNETCORE_ENVIRONMENT=Production
+    ports:
+     - "80:80"
+  
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    user: root
+    container_name: mssql_server
+    ports:
+      - "1433:1433"
+    environment:
+      MSSQL_SA_PASSWORD: LernDeutch123
+      ACCEPT_EULA: Y
+    volumes:
+      - mssql_data:/var/opt/mssql/data
+
+
+volumes:
+  mssql_data:
+    driver: local

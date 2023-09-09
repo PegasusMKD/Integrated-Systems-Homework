@@ -109,15 +109,15 @@ namespace ISH.Service.Implementations
 
         public void UpdateUser(UserDto userDto, string currentPassword, string newPassword)
         {
+            var copyOfUser = _userRepository.GetUserById(userDto.Id);
             var user = _mapper.Map<User>(userDto);
             user = _userRepository.UpdateUser(user);
-
             if (newPassword != null && currentPassword != null)
                 _userManager.ChangePasswordAsync(user, currentPassword, newPassword).Wait();
 
             if (userDto.Roles != null && userDto.Roles.Length > 0)
             {
-                _userManager.RemoveFromRolesAsync(user, new List<string> { "User", "Administrator" }).Wait();
+                _userManager.RemoveFromRolesAsync(copyOfUser, new List<string> { "User", "Administrator" }).Wait();
                 _userManager.AddToRolesAsync(user, userDto.Roles).Wait();
             }
         }
