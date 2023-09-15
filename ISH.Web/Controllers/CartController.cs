@@ -56,5 +56,9 @@ namespace Integrated_Systems_Homework.Controllers
             var user = _userService.GetUserByClaims(HttpContext.User);
             _cartService.DeleteCartByUser(user!.Id!);
         }
+
+        [Route("test")]
+        [HttpPost]
+        public void test() {}
     }
 }
